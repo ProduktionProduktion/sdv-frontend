@@ -11,7 +11,7 @@ export function getStaticProps(ctx) {
 export async function getStaticPaths() {
 	return {
 		paths: [
-			{ params: { wordpressNode: [""] } }, // för "/"
+			//{ params: { wordpressNode: [""] } }, // för "/"
 		],
 		fallback: "blocking",
 	};

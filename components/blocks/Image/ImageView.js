@@ -1,4 +1,4 @@
-// import Image from "next/image";
+import Image from "next/image";
 import styles from './Image.module.css';
 import { getLayoutProps } from '../../../helpers';
 
@@ -36,8 +36,8 @@ export function ImageView({ isAttachment, image: {node: imageNode}, externalImag
   
   return (
     <figure {...figureProps}>
-      <img alt={isAttachment ? imageNode?.altText : caption} src={isAttachment ? imageNode?.sourceUrl : externalImage} {...imageProps} />
-      {/* <Image alt={isAttachment ? imageNode.altText : caption} src={isAttachment ? imageNode.sourceUrl : externalImage} {...imageProps} /> */}
+      {/* <img alt={isAttachment ? imageNode?.altText : caption} src={isAttachment ? imageNode?.sourceUrl : externalImage} {...imageProps} /> */}
+      <Image alt={isAttachment ? imageNode?.altText : caption} src={isAttachment ? imageNode?.sourceUrl : externalImage} {...imageProps} />
       {caption && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
     </figure>
   );
