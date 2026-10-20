@@ -1,0 +1,1 @@
+export { BlocksComponentMap } from './BlocksComponentMap';
