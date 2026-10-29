@@ -285,16 +285,6 @@
 
                         ._meta {
                             grid-area: info;
-                            line-height: calc(1rem * var(--line-height));
-
-                            > * {
-                                white-space: nowrap;
-                            }
-
-                            > p {
-                                /* margin-bottom: var(--spacer-sm); */
-                                text-indent: 0;
-                            }
                         }
                     }
                 }
@@ -306,6 +296,18 @@
                     }
                 }
             }
+        }
+    }
+
+    ._meta {
+        line-height: calc(1rem * var(--line-height));
+
+        > * {
+            white-space: nowrap;
+        }
+
+        > p {
+            text-indent: 0;
         }
     }
 }
