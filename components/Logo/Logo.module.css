@@ -1,0 +1,8 @@
+.logo {
+    width: 100%;
+    height: auto;
+
+    .colored {
+        fill: var(--color-theme);
+    }
+}

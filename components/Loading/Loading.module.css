@@ -1,0 +1,38 @@
+@keyframes loading-spinner {
+    0% {
+        content: '>\00a0\00a0\00a0\00a0';
+    }
+    20% {
+        content: '\00a0>\00a0\00a0\00a0';
+    }
+    40% {
+        content: '\00a0\00a0>\00a0\00a0';
+    }
+    60% {
+        content: '\00a0\00a0\00a0>\00a0';
+    }
+
+    80% {
+        content: '\00a0\00a0\00a0\00a0>';
+    }
+}
+
+.loadingSpinner {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    gap: var(--spacer-sm);
+    font-weight: 600;
+    color: var(--color-theme);
+
+    &::after {
+        content: '\00a0\00a0\00a0\00a0\00a0';
+        animation-name: loading-spinner;
+        animation-duration: 0.8s;
+        animation-timing-function: steps(4, end);
+        animation-iteration-count: infinite;
+    }
+}

@@ -1,8 +1,9 @@
-import { gql } from "@apollo/client";
-import { ImageView } from "./ImageView";
-import { ImgFragment } from "@/fragments/Media";
+import { gql } from '@apollo/client';
+import { ImageView } from './ImageView';
+import { ImgNodeFragment } from '@/fragments/Media';
+import NextImage from 'next/image';
 
-export const Image = (props) => <ImageView {...props} />;
+export const Image = ({ key, ...props }) => <ImageView {...props} key={key} imgComponent={NextImage} />;
 
 const COMPONENT_NAME = 'Image';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;
@@ -10,11 +11,11 @@ const ACF_SLUG = COMPONENT_NAME.toLowerCase();
 const FRAGMENT_KEY = `${COMPONENT_NAME}Fragment`;
 
 Image.fragments = {
-  fragmentName: FRAGMENT_KEY,
-  acfName: ACF_NAME,
-  acfSlug: ACF_SLUG,
-  entry: gql`
-    ${ImgFragment}
+    fragmentName: FRAGMENT_KEY,
+    acfName: ACF_NAME,
+    acfSlug: ACF_SLUG,
+    entry: gql`
+    ${ImgNodeFragment}
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
       isAttachment
       externalImage
@@ -31,5 +32,5 @@ Image.fragments = {
         ...ImgNodeFragment
       }
     }
-  `
+  `,
 };

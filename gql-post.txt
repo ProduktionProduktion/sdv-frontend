@@ -1,0 +1,255 @@
+fragment ButtonsFragment on Buttons {
+      buttons {
+        link {
+          target
+          title
+          url
+        }
+        color
+        size
+        style
+      }
+    }
+  
+    fragment EditorFragment on Editor {
+      content
+      dontLimitWidth
+      columns
+    }
+
+    fragment GalleryFragment on Gallery {
+      images {
+        nodes {
+          ...ImgFragment
+        }
+      }
+    }
+    
+    fragment WorkFragment on Work {
+      #field
+      work {
+        #posts
+        nodes {
+          #post_type
+          ... on WorkPost {
+            #post (work)
+            id
+            title
+            featuredImage {
+              node {
+                ...ImgFragment
+              }
+            }
+            workPostFields {
+              description
+              images {
+                nodes {
+                  sourceUrl
+                  altText
+                  mediaDetails { width height }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    fragment HeadingFragment on Heading {
+      align
+      customSize
+      heading
+      tag
+    }
+  
+    fragment HeroFragment on Hero {
+      type
+      preamble
+      heading
+      buttons {
+        link {
+          target
+          title
+          url
+        }
+        color
+        size
+        style
+      }
+    }
+  
+    
+    
+    fragment ImgFragment on MediaItem {
+        id
+        altText
+        sourceUrl
+        mediaDetails {
+            width
+            height
+        }
+    }
+
+    fragment ImgNodeFragment on AcfMediaItemConnectionEdge {
+        node {
+            ...ImgFragment
+        }
+    }
+
+    fragment ImageFragment on Image {
+      isAttachment
+      externalImage
+      externalImageDimensions {
+        height
+        width
+      }
+      caption
+      alignment
+      customMaxWidth
+      bleed
+      biggerOnSm
+      image {
+        ...ImgNodeFragment
+      }
+    }
+  
+    fragment SectionFragment on Section {
+      verticalAlignment
+    }
+  
+  
+  fragment LayoutSettings on EditorBlock {
+    layoutOptions {
+      enableSpacing
+      paddingTop
+      paddingBottom
+      marginTop
+      marginBottom
+      limitWidth
+      fullWidth
+      textColor
+      backgroundColor
+      backgroundImage {
+        ...ImgFragment
+      }
+      backgroundSize
+      backgroundPosition
+      backgroundRepeat
+      colWidth
+      colOffset
+      mobileOrder
+      alignSelf
+      sectionId
+      customClasses
+    }
+  }
+
+
+  fragment BlockEditorFragment on NodeWithEditorBlocks {
+    editorBlocks(flat: true) {
+      __typename
+      name
+      clientId
+      parentClientId
+      ...LayoutSettings
+      
+      ... on AcfButtons {
+        buttons {
+          ...ButtonsFragment
+        }
+      }
+      ... on AcfEditor {
+        editor {
+          ...EditorFragment
+        }
+      }
+      ... on AcfGallery {
+        gallery {
+          ...GalleryFragment
+        }
+      }
+      ... on AcfHeading {
+        heading {
+          ...HeadingFragment
+        }
+      }
+      ... on AcfHero {
+        hero {
+          ...HeroFragment
+        }
+      }
+      ... on AcfImage {
+        image {
+          ...ImageFragment
+        }
+      }
+      ... on AcfSection {
+        section {
+          ...SectionFragment
+        }
+      }
+      ... on AcfWork {
+        work {
+          ...WorkFragment
+        }
+      }
+    }
+  }
+
+    
+        
+    fragment BlogInfoFragment on GeneralSettings {
+        title
+        description
+    }
+
+        
+        fragment NavigationMenuItemFragment on MenuItem {
+            id
+            path
+            label
+            parentId
+            cssClasses
+            menu {
+                node {
+                    name
+                }
+            }
+        }
+    
+        fragment HeaderFragment on RootQuery {
+            generalSettings {
+                ...BlogInfoFragment
+            }
+            headerMenuItems: menuItems(where: {location: PRIMARY_NAVIGATION}) {
+                nodes {
+                    ...NavigationMenuItemFragment
+                }
+            }
+        }
+
+
+        fragment FooterFragment on RootQuery {
+            footerSidebar: sidebar(id: "sidebar-footer") {
+                id
+                name
+                widgets {
+                    name
+                    clientId
+                    parentClientId
+                    data
+                    editorBlocks(flat: true) {
+                        __typename
+                        ...LayoutSettings
+                    }
+                }
+            }
+        }
+    
+    query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
+        post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+          ...BlockEditorFragment
+        }
+        ...HeaderFragment
+        ...FooterFragment
+    }

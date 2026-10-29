@@ -1,0 +1,103 @@
+fragment BlogInfoFragment on GeneralSettings {
+        title
+        description
+    }
+
+        
+        fragment NavigationMenuItemFragment on MenuItem {
+            id
+            path
+            label
+            parentId
+            cssClasses
+            menu {
+                node {
+                    name
+                }
+            }
+        }
+    
+        fragment HeaderFragment on RootQuery {
+            generalSettings {
+                ...BlogInfoFragment
+            }
+            headerMenuItems: menuItems(where: { location: PRIMARY_NAVIGATION }) {
+                nodes {
+                    ...NavigationMenuItemFragment
+                }
+            }
+        }
+    
+    
+        
+  fragment LayoutSettings on EditorBlock {
+    layoutOptions {
+      enableSpacing
+      paddingTop
+      paddingBottom
+      marginTop
+      marginBottom
+      limitWidth
+      fullWidth
+      textColor
+      backgroundColor
+      backgroundImage {
+        ...ImgFragment
+      }
+      backgroundSize
+      backgroundPosition
+      backgroundRepeat
+      colWidth
+      colOffset
+      mobileOrder
+      alignSelf
+      sectionId
+      customClasses
+    }
+  }
+
+        
+    fragment ImgFragment on MediaItem {
+        id
+        altText
+        sourceUrl
+        mediaDetails {
+            width
+            height
+        }
+    }
+
+
+        fragment FooterFragment on RootQuery {
+            footerSidebar: sidebar(id: "sidebar-footer") {
+                id
+                name
+                widgets {
+                    name
+                    clientId
+                    parentClientId
+                    data
+                    editorBlocks(flat: true) {
+                        __typename
+                        ...LayoutSettings
+                    }
+                }
+            }
+        }
+    
+    query GetWork($databaseId: ID!, $asPreview: Boolean = false) {
+        workPost(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+            id
+            title
+            workPostFields {
+                description
+                images {
+                    nodes {
+                        ...ImgFragment
+                    }
+                }
+            }
+        }
+        ...HeaderFragment
+        ...FooterFragment
+    }

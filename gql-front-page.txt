@@ -1,0 +1,324 @@
+fragment ButtonsFragment on Buttons {
+      buttons {
+        link {
+          target
+          title
+          url
+        }
+        color
+        size
+        style
+      }
+    }
+  
+    fragment EditorFragment on Editor {
+      content
+      dontLimitWidth
+      columns
+    }
+  
+    fragment EventsFragment on Events {
+      #displayLatest
+      events { #field
+        nodes { #posts
+          ... on EventPost { #post_type
+            id #post (event) > id
+            title #post (event) > title
+            eventPostFields {
+              date
+              description
+            }
+          }
+        }
+      }
+    }
+  
+    
+    fragment ImgFragment on MediaItem {
+        id
+        altText
+        sourceUrl
+        mediaDetails {
+            width
+            height
+        }
+    }
+
+    fragment GalleryFragment on Gallery {
+      images {
+        nodes {
+          ...ImgFragment
+        }
+      }
+    }
+  
+    fragment HeadingFragment on Heading {
+      align
+      customSize
+      heading
+      tag
+    }
+  
+    fragment HeroFragment on Hero {
+      type
+      preamble
+      heading
+      buttons {
+        link {
+          target
+          title
+          url
+        }
+        color
+        size
+        style
+      }
+    }
+  
+    
+    
+    fragment ImgFragment on MediaItem {
+        id
+        altText
+        sourceUrl
+        mediaDetails {
+            width
+            height
+        }
+    }
+
+    fragment ImgNodeFragment on AcfMediaItemConnectionEdge {
+        node {
+            ...ImgFragment
+        }
+    }
+
+    fragment ImageFragment on Image {
+      isAttachment
+      externalImage
+      externalImageDimensions {
+        height
+        width
+      }
+      caption
+      alignment
+      customMaxWidth
+      bleed
+      biggerOnSm
+      image {
+        ...ImgNodeFragment
+      }
+    }
+  
+        fragment SectionFragment on Section {
+            verticalAlignment
+        }
+    
+    fragment WorkFragment on Work {
+      displayAll
+      work { #field
+        nodes { #posts
+          ... on WorkPost { #post_type
+            id #post (work) > id
+            title #post (work) > title
+            uri #post (work) > uri
+            featuredImage {
+              node {
+                ...ImgFragment
+              }
+            }
+            workPostFields {
+              description
+              images {
+                nodes {
+                  ...ImgFragment
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+  
+  fragment LayoutSettings on EditorBlock {
+    layoutOptions {
+      enableSpacing
+      paddingTop
+      paddingBottom
+      marginTop
+      marginBottom
+      limitWidth
+      fullWidth
+      textColor
+      backgroundColor
+      backgroundImage {
+        ...ImgFragment
+      }
+      backgroundSize
+      backgroundPosition
+      backgroundRepeat
+      colWidth
+      colOffset
+      mobileOrder
+      alignSelf
+      sectionId
+      customClasses
+    }
+  }
+
+
+  fragment BlockEditorFragment on NodeWithEditorBlocks {
+    editorBlocks(flat: true) {
+      __typename
+      name
+      clientId
+      parentClientId
+      ...LayoutSettings
+      
+      ... on AcfButtons {
+        buttons {
+          ...ButtonsFragment
+        }
+      }
+      ... on AcfEditor {
+        editor {
+          ...EditorFragment
+        }
+      }
+      ... on AcfEvents {
+        events {
+          ...EventsFragment
+        }
+      }
+      ... on AcfGallery {
+        gallery {
+          ...GalleryFragment
+        }
+      }
+      ... on AcfHeading {
+        heading {
+          ...HeadingFragment
+        }
+      }
+      ... on AcfHero {
+        hero {
+          ...HeroFragment
+        }
+      }
+      ... on AcfImage {
+        image {
+          ...ImageFragment
+        }
+      }
+      ... on AcfSection {
+        section {
+          ...SectionFragment
+        }
+      }
+      ... on AcfWork {
+        work {
+          ...WorkFragment
+        }
+      }
+    }
+  }
+
+    
+        
+    fragment BlogInfoFragment on GeneralSettings {
+        title
+        description
+    }
+
+        
+        fragment NavigationMenuItemFragment on MenuItem {
+            id
+            path
+            label
+            parentId
+            cssClasses
+            menu {
+                node {
+                    name
+                }
+            }
+        }
+    
+        fragment HeaderFragment on RootQuery {
+            generalSettings {
+                ...BlogInfoFragment
+            }
+            headerMenuItems: menuItems(where: { location: PRIMARY_NAVIGATION }) {
+                nodes {
+                    ...NavigationMenuItemFragment
+                }
+            }
+        }
+    
+    
+        
+  fragment LayoutSettings on EditorBlock {
+    layoutOptions {
+      enableSpacing
+      paddingTop
+      paddingBottom
+      marginTop
+      marginBottom
+      limitWidth
+      fullWidth
+      textColor
+      backgroundColor
+      backgroundImage {
+        ...ImgFragment
+      }
+      backgroundSize
+      backgroundPosition
+      backgroundRepeat
+      colWidth
+      colOffset
+      mobileOrder
+      alignSelf
+      sectionId
+      customClasses
+    }
+  }
+
+        
+    fragment ImgFragment on MediaItem {
+        id
+        altText
+        sourceUrl
+        mediaDetails {
+            width
+            height
+        }
+    }
+
+
+        fragment FooterFragment on RootQuery {
+            footerSidebar: sidebar(id: "sidebar-footer") {
+                id
+                name
+                widgets {
+                    name
+                    clientId
+                    parentClientId
+                    data
+                    editorBlocks(flat: true) {
+                        __typename
+                        ...LayoutSettings
+                    }
+                }
+            }
+        }
+    
+    query GetFrontPage {
+        nodeByUri(uri: "/") {
+            ... on Page {
+                ...BlockEditorFragment
+            }
+        }
+        ...HeaderFragment
+        ...FooterFragment
+    }

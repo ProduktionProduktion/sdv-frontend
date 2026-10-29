@@ -1,73 +1,54 @@
-import { gql } from "@apollo/client";
-import { BlockEditorFragment } from "../fragments/BlockEditor";
-import { BlocksComponentMap } from "@/components/BlocksComponentMap";
-import { Header } from "@/components/Header";
-import { NavigationMenu } from "@/components/NavigationMenu";
-import { BlogInfoFragment } from "@/fragments/GeneralSettings";
+import { gql } from '@apollo/client';
+import Head from 'next/head';
+import { BlockEditorFragment } from '../fragments/BlockEditor';
+import { BlocksComponentMap } from '@/components/BlocksComponentMap';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { Loading } from '@/components/Loading';
 
-export default function Component(props) {
-	if (props.loading) {
-		return <>Loading...</>;
-	}
+export default function Component({ loading, data }) {
+    if (loading) {
+        return <Loading text="THINKING" />;
+    }
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings;
- 
-	return <>
-		<Header title={siteTitle} description={siteDescription} menuItems={props?.data?.headerMenuItems?.nodes} />
-		<BlocksComponentMap data={props?.data?.nodeByUri} />
-	</>;
+    const { generalSettings, headerMenuItems, nodeByUri, footerSidebar } = data;
+    const { title: siteTitle, description: siteDescription } = generalSettings;
+
+    return (
+        <>
+            <Head>
+                <title>{siteTitle}</title>
+                <meta name="description" content={siteDescription} />
+            </Head>
+            <Header title={siteTitle} description={siteDescription} menuItems={headerMenuItems?.nodes} />
+            <BlocksComponentMap data={nodeByUri} />
+            <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
+        </>
+    );
 }
 
-// Component.query = gql`
-//   query GetFrontPage {
-//     nodeByUri(uri: "/") {
-//       #__typename
-//       ... on ContentType {
-//         #id
-//         #name
-//         contentNodes {
-//           nodes {
-//             ...on Post {
-//               #id
-//               content
-//             }
-//           }
-//         }
-//       }
-//       ... on Page {
-//         #id
-//         #title
-//         content
-//       }
-//     }
-//   }
-// `;
-
 Component.query = gql`
-  ${BlockEditorFragment}
-  ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
-  query GetFrontPage {
-    nodeByUri(uri: "/") {
-      ... on Page {
-        ...BlockEditorFragment
-      }
+    ${BlockEditorFragment}
+    ${Header.fragments.entry}
+    ${Footer.fragments.entry}
+    query GetFrontPage {
+        nodeByUri(uri: "/") {
+            ... on Page {
+                ...BlockEditorFragment
+            }
+        }
+        ...HeaderFragment
+        ...FooterFragment
     }
-    generalSettings {
-      ...BlogInfoFragment
-    }
-    headerMenuItems: menuItems(where: { location: PRIMARY_NAVIGATION }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-  }
 `;
+
+// console.log('---');
+// console.log(Component.query?.loc?.source?.body);
+// console.log('---');
 
 // Variables function to provide the required arguments to the query
 Component.variables = (_, ctx) => {
-	return {
-		asPreview: ctx?.asPreview,
-	};
+    return {
+        asPreview: ctx?.asPreview,
+    };
 };

@@ -1,0 +1,311 @@
+@keyframes workPile {
+    from {
+        transform: translate(var(--pile-start-x, 0), calc(var(--pile-start-y, 0) - var(--pile-margin-top)));
+    }
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+.work {
+    &.grid {
+        .pile {
+            container-type: inline-size;
+            container-name: pile;
+            padding-top: calc(var(--pile-margin-top));
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: var(--grid-gutter);
+
+            @media screen and (min-width: 768px) {
+                margin-inline-end: calc(var(--grid-column-width) + var(--grid-gutter)) !important;
+            }
+
+            /* margin-bottom: var(--grid-gutter); */
+
+            .column {
+                flex: 1 0 100%;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--grid-gutter);
+
+                @media screen and (min-width: 768px) {
+                    flex: 1 1 0;
+                }
+            }
+
+            .item {
+                /* position: relative; */
+                cursor: pointer;
+                z-index: var(--z, auto);
+
+                @supports (animation-timeline: scroll()) {
+                    @media (prefers-reduced-motion: no-preference) {
+                        animation: workPile ease both;
+                        animation-timeline: scroll(root);
+                        /* från att griden kommer in underifrån tills dess topp når viewportens topp */
+                        animation-range: 0 calc(var(--work-top, 50vh) + var(--pile-margin-top));
+
+                        &[data-index='1'] {
+                            --pile-start-x: 0;
+                            --pile-start-y: 2cqi;
+                            --z: 2;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: 4cqi;
+                            }
+                        }
+
+                        &[data-index='2'] {
+                            --pile-start-x: -25cqi;
+                            --pile-start-y: -34cqi;
+                            --z: 5;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: -12cqi;
+                            }
+                        }
+
+                        &[data-index='3'] {
+                            --pile-start-x: 13cqi;
+                            --pile-start-y: -87cqi;
+                            --z: 4;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: -48cqi;
+                            }
+                        }
+
+                        &[data-index='4'] {
+                            --pile-start-x: -15cqi;
+                            --pile-start-y: -107cqi;
+                            --z: 3;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: -4cqi;
+                            }
+                        }
+
+                        &[data-index='5'] {
+                            --pile-start-x: 21cqi;
+                            /* --pile-start-y: -33cqi; */
+                            --z: 1;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: -40cqi;
+
+                                ._inner {
+                                    ._info {
+                                        justify-self: start;
+                                    }
+                                }
+                            }
+                        }
+
+                        &[data-index='6'] {
+                            --pile-start-x: -7cqi;
+                            /* --pile-start-y: -62cqi; */
+                            --z: 6;
+
+                            @media screen and (min-width: 768px) {
+                                --pile-start-y: -62cqi;
+                            }
+                        }
+                    }
+                }
+
+                ._inner {
+                    display: grid;
+                    will-change: transform, box-shadow;
+                    overflow: clip; /* NOT hidden – hidden breaks sticky against the viewport */
+                    border-radius: var(--border-radius);
+                    transition:
+                        box-shadow 0.3s ease,
+                        transform 0.3s ease;
+                    box-shadow: var(--box-shadow-lg);
+                    background: var(--background);
+
+                    figure,
+                    ._info {
+                        grid-area: 1 / 1; /* stack both in the same cell */
+                    }
+
+                    figure {
+                        width: 100%;
+
+                        img {
+                            width: 100%;
+                            transition: opacity 0.5s ease;
+                        }
+                    }
+
+                    ._info {
+                        --box-shadow-color: var(--background);
+
+                        position: sticky; /* replaces absolute + right/bottom */
+                        bottom: var(--spacer-sm);
+                        /* right: var(--spacer-sm); */
+                        place-self: end;
+                        z-index: 10;
+                        /* width: 100%; */
+                        width: calc(100% - (var(--spacer-sm) * 2));
+                        max-width: 12rem;
+                        padding: var(--spacer-sm);
+                        margin: var(--spacer-sm);
+                        border-radius: var(--border-radius-xs);
+                        text-wrap: pretty;
+                        font-size: var(--font-size-sm);
+                        background-color: var(--foreground);
+                        color: var(--background);
+                        box-shadow: var(--box-shadow-lg);
+                        pointer-events: none;
+                        opacity: 0;
+                        transition: opacity 0.5s ease; /* 0.15s; */
+
+                        h1 {
+                            text-wrap: balance;
+                            font-size: var(--font-size-sm);
+                        }
+                    }
+                }
+
+                /* + ._info {
+                    position: fixed;
+                    z-index: 10;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    max-width: 100%;
+                    padding: var(--spacer-sm) var(--spacer-sm);
+                    margin: var(--spacer);
+                    opacity: 0;
+                    text-wrap: pretty;
+                    background-color: var(--foreground);
+                    color: var(--background);
+                    pointer-events: none;
+
+                    h1 {
+                        text-wrap: balance;
+                        font-size: 1.25rem;
+                    }
+                } */
+
+                &:hover,
+                &:focus-visible {
+                    z-index: 10;
+
+                    ._inner {
+                        transform: scale(1.01);
+                        box-shadow: var(--box-shadow-xl);
+
+                        @media screen and (min-width: 768px) {
+                            ._info {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    @media screen and (min-width: 768px) {
+                        /* + ._info {
+                            opacity: 1;
+                        } */
+                    }
+                }
+            }
+
+            /* &:has(.item:is(:hover, :focus-visible)) {
+                .item:not(:hover, :focus-visible) {
+                    img {
+                        opacity: 0.75;
+                    }
+                }
+            } */
+        }
+    }
+
+    &.list {
+        .pile {
+            position: relative;
+            display: grid;
+            gap: var(--spacer);
+            grid-template-columns: auto auto 1fr;
+            grid-template-areas: 'heading description info';
+
+            .item {
+                grid-column: 1 / -1;
+                display: grid;
+                gap: var(--spacer);
+                grid-template-columns: subgrid;
+                padding-bottom: var(--spacer);
+                border-bottom: 1px solid var(--foreground);
+                cursor: pointer;
+
+                ._inner {
+                    grid-column: 1 / -1;
+                    display: grid;
+                    grid-template-columns: subgrid;
+
+                    figure {
+                        position: fixed;
+                        z-index: -1;
+                        inset: 50% auto auto 50%;
+                        transform: translate(-50%, -50%);
+                        width: auto;
+                        height: 80%;
+                        aspect-ratio: 1;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                        mix-blend-mode: multiply;
+                        filter: saturate(0) brightness(2.25) contrast(0.33);
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+
+                    ._info {
+                        grid-column: 1 / -1;
+                        display: grid;
+                        grid-template-columns: subgrid;
+
+                        h1 {
+                            grid-area: heading;
+                            text-align: right;
+                            font-size: var(--font-size);
+                            line-height: var(--line-height);
+                        }
+
+                        ._shortDescription {
+                            grid-area: description;
+                        }
+
+                        ._meta {
+                            grid-area: info;
+                            line-height: calc(1rem * var(--line-height));
+
+                            > * {
+                                white-space: nowrap;
+                            }
+
+                            > p {
+                                /* margin-bottom: var(--spacer-sm); */
+                                text-indent: 0;
+                            }
+                        }
+                    }
+                }
+
+                &:hover,
+                &:focus-visible {
+                    figure {
+                        opacity: 0.55;
+                    }
+                }
+            }
+        }
+    }
+}

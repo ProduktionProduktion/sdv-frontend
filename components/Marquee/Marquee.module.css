@@ -1,0 +1,61 @@
+.marquee {
+    position: relative;
+    display: flex;
+    width: 100%;
+    container-type: inline-size;
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: var(--spacer);
+    white-space: nowrap;
+
+    &.-left {
+        top: auto;
+        bottom: 0;
+        transform-origin: top left;
+        transform: translate(0%, 100%) rotate(-90deg);
+    }
+
+    &.-pauseOnHover {
+        &:hover {
+            .track {
+                animation-play-state: paused;
+            }
+        }
+    }
+}
+
+.track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 20s) linear infinite;
+    will-change: transform;
+}
+
+/* .marquee:hover .track {
+    animation-play-state: paused;
+} */
+
+.group {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    gap: var(--spacer);
+    /* each group fills at least the visible width, so children spread evenly */
+    min-width: 100cqw;
+    /* half a gap on each side => a full gap across the seam between groups */
+    padding-inline: calc(var(--spacer) / 2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .track {
+        animation: none;
+    }
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}

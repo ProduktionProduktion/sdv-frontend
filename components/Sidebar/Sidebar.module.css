@@ -1,0 +1,46 @@
+@keyframes sidebar-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sidebar {
+    position: relative;
+    top: 0;
+    display: none;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 300;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+    }
+
+    ._inner {
+        position: sticky;
+        top: var(--sticky-offset);
+        display: inline-block;
+        padding-inline: var(--sidebar-padding);
+        white-space: nowrap;
+        text-align: right;
+        line-height: 1;
+        writing-mode: vertical-rl;
+        rotate: 180deg;
+    }
+
+    &.fade {
+        padding-top: var(--pile-margin-top);
+
+        @supports (animation-timeline: scroll()) {
+            @media (prefers-reduced-motion: no-preference) {
+                animation: sidebar-fade ease both;
+                animation-timeline: scroll(root);
+                animation-range: 0 calc(var(--work-top, 50vh) + var(--pile-margin-top));
+            }
+        }
+    }
+}

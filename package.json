@@ -7,12 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "generate": "faust generatePossibleTypes",
-    "build:cms": "vite build",
+    "build:cms": "vite build --emptyOutDir",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
@@ -23,7 +22,7 @@
     "@faustwp/core": "^3.5.1",
     "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^9",
-    "eslint-config-next": "16.4.0",
+    "eslint-config-next": "16.4.2",
     "graphql": "^16.14.2",
     "next-secure-headers": "^2.2.0",
     "rollup-plugin-esbuild": "^6.2.1",
@@ -34,7 +33,9 @@
     "@faustwp/blocks": "^6.1.12",
     "@faustwp/cli": "^3.5.1",
     "@faustwp/core": "^3.5.1",
+    "eslint-config-next": "^16.4.2",
     "graphql": "^16.14.2",
+    "next": "^16.4.2",
     "next-secure-headers": "^2.2.0"
   }
 }

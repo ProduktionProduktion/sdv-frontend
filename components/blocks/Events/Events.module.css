@@ -1,0 +1,115 @@
+:global(.m-events:not(:is(.m-section .m:not(.m-section)))) {
+    padding-inline: 0;
+}
+
+.events {
+    .scroller {
+        --item-width: 100%;
+
+        @media (min-width: 768px) {
+            --item-width: 50%;
+        }
+
+        @media (min-width: 1024px) {
+            --item-width: 33.3333%;
+        }
+
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--grid-padding-x);
+        /* padding-block: var(--spacer-xs); */
+        padding-inline: var(--grid-padding-x);
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollerInner {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--grid-gutter);
+            grid-auto-flow: column;
+
+            &::after {
+                content: '';
+                flex: 0 0 0.1px;
+            }
+        }
+
+        .item {
+            flex: 0 0 calc(var(--item-width) - var(--grid-gutter) * 2 / 3);
+            scroll-snap-align: start;
+
+            ._inner {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                height: 100%;
+                padding-block: var(--spacer) var(--spacer-md);
+                border: 1px solid currentColor;
+                border-radius: var(--border-radius);
+            }
+
+            ._date,
+            ._title,
+            ._description {
+                padding-inline: var(--spacer-lg);
+            }
+
+            ._date {
+                text-align: center;
+                border-bottom: 1px solid currentColor;
+                font-family: var(--font-mono);
+                font-size: var(--font-size-sm);
+                font-weight: 300;
+                padding-bottom: var(--spacer);
+
+                ._weekday {
+                }
+
+                ._day {
+                    display: block;
+                    font-size: var(--font-size-h1);
+                }
+
+                ._month {
+                }
+
+                ._year {
+                }
+            }
+
+            ._title {
+                margin-top: var(--spacer-sm);
+                font-size: var(--font-size);
+                line-height: var(--line-height-h3);
+                text-wrap: balance;
+            }
+
+            ._description {
+                text-wrap: pretty;
+
+                > :first-child {
+                    margin-top: 0;
+                }
+
+                > :last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .displayUpcoming {
+    }
+}
+
+.marqueeItem {
+    display: flex;
+    gap: var(--spacer-xl);
+    align-items: center;
+    justify-content: center;
+}

@@ -1,57 +1,68 @@
 import { flatListToHierarchical } from '@faustwp/core';
 import * as Blocks from '../blocks';
 
-export const BlocksComponentMap = ({data: {editorBlocks}}) => {
+export const BlocksComponentMap = ({ data: { editorBlocks } }) => {
     const hierarchicalBlocks = flatListToHierarchical(editorBlocks, {
         idKey: 'clientId',
         parentKey: 'parentClientId',
-        childrenKey: 'children'
+        childrenKey: 'children',
     });
-    
-    return hierarchicalBlocks?.map((block, index) => blockRenderer(block, index));
+
+    return (
+        <main className="document-content">
+            {hierarchicalBlocks?.map((block, index) => blockRenderer(block, index))}
+        </main>
+    );
 };
 
+export const blockRenderer = (
+    { __typename: acfTypeName = null, clientId, layoutOptions = null, ...restProps },
+    index,
+    isChild = false,
+    keyPrefix = '',
+    renderedIds = new Set(),
+) => {
+    try {
+        const ComponentName = acfTypeName.replace(/^Acf/, '');
+        const BlockComponent = Blocks[ComponentName] ?? null;
 
-const blockRenderer = (block, index, isColumn = false) => {
-    const { name: acfBlockName, __typename: acfTypeName, layoutOptions, ...restProps } = block;
-    const blockName = acfTypeName.replace(/^Acf/, '');
-    const BlockComponent = Blocks[blockName] ?? null;
-    
-    if (!BlockComponent) {
+        if (!BlockComponent) {
+            console.warn('No component found for:', ComponentName);
+            return null;
+        }
+
+        const blockSlug = ComponentName.toLowerCase();
+        const { __typename = null, ...blockProps } = restProps[blockSlug] || {};
+        const children = restProps.children || [];
+
+        // Prevent circular references
+        const blockId = restProps.clientId || restProps.id;
+
+        if (blockId && renderedIds.has(blockId)) {
+            console.warn('Circular reference detected for block:', blockId);
+            return null;
+        }
+
+        const newRenderedIds = new Set(renderedIds);
+
+        if (blockId) {
+            newRenderedIds.add(blockId);
+        }
+
+        return BlockComponent({
+            // key: `${keyPrefix}${blockSlug}-${index}`,
+            key: clientId,
+            blockSlug,
+            layoutOptions,
+            isChild,
+            ...blockProps,
+            children: children.map((child, childIndex) =>
+                blockRenderer(child, childIndex, true, `${keyPrefix}${ComponentName}-`, newRenderedIds),
+            ),
+        });
+    } catch (error) {
+        console.error('Error rendering block:', error);
+
         return null;
     }
-    
-    const propKey = blockName.toLowerCase();
-    const {__typename=null, ...blockProps} = restProps[propKey] || {};
-    const children = restProps.children || [];
-    // const layoutProps = getLayoutProps(layoutOptions, propKey, isColumn);
-    
-    return <BlockComponent 
-        key={`${blockName}-${index}`}
-        layoutOptions={layoutOptions}
-        {...blockProps}
-    >
-      {children.map((child, childIndex) => blockRenderer(child, childIndex, true))}
-    </BlockComponent>;
 };
-
-// const flatListToHierarchical = (
-//     data = [],
-//     {idKey='key',parentKey='parentId',childrenKey='children'} = {}
-// ) => {
-//     const tree = [];
-//     const childrenOf = {};
-
-//     data.forEach((item) => {
-//         const newItem = {...item};
-//         const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-//         childrenOf[id] = childrenOf[id] || [];
-//         newItem[childrenKey] = childrenOf[id];
-//         parentId
-//             ? (
-//                 childrenOf[parentId] = childrenOf[parentId] || []
-//             ).push(newItem)
-//             : tree.push(newItem);
-//     });
-//     return tree;
-// };

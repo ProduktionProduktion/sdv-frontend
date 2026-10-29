@@ -1,0 +1,35 @@
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacer) var(--grid-padding-x);
+    gap: var(--spacer-xs);
+    overflow: visible;
+    font-family: var(--font-navigation);
+    font-size: var(--font-size-nav);
+    font-weight: 600;
+
+    @media screen and (min-width: 768px) {
+        gap: var(--spacer);
+    }
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    /* height: 1.5rem; */
+    width: 14rem;
+    max-width: 100%;
+}
+
+.symbol {
+    position: fixed;
+    z-index: 100;
+    right: var(--grid-padding-x);
+    bottom: var(--spacer-lg);
+    display: inline-flex;
+    align-items: center;
+    width: 9rem;
+    pointer-events: none;
+}

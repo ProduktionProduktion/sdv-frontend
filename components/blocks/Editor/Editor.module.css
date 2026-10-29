@@ -1,0 +1,9 @@
+:global(.m-editor.-columns-2) {
+    column-count: 2;
+    column-gap: var(--grid-gutter);
+}
+
+:global(.m-editor.-columns-3) {
+    column-count: 3;
+    column-gap: var(--grid-gutter);
+}
