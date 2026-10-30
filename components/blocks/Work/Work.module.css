@@ -18,9 +18,9 @@
             align-items: flex-start;
             gap: var(--grid-gutter);
 
-            @media screen and (min-width: 768px) {
+            /* @media screen and (min-width: 768px) {
                 margin-inline-end: calc(var(--grid-column-width) + var(--grid-gutter)) !important;
-            }
+            } */
 
             /* margin-bottom: var(--grid-gutter); */
 
@@ -168,6 +168,10 @@
                             text-wrap: balance;
                             font-size: var(--font-size-sm);
                         }
+
+                        ._meta {
+                            display: none;
+                        }
                     }
                 }
 
@@ -253,7 +257,7 @@
                         inset: 50% auto auto 50%;
                         transform: translate(-50%, -50%);
                         width: auto;
-                        height: 80%;
+                        height: 80vmin;
                         aspect-ratio: 1;
                         opacity: 0;
                         transition: opacity 0.3s ease;

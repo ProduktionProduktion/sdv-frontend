@@ -47,6 +47,7 @@ export function WorkView({
     work,
     ref,
     linkComponent,
+    imgComponent,
     onClick,
     blockSlug,
     isChild,
@@ -72,6 +73,8 @@ export function WorkView({
             index={index + 1}
             classNames={styles}
             linkComponent={linkComponent}
+            imgComponent={imgComponent}
+            sizes={displayStyle === 'list' ? '(min-width: 768px) 80vmin, 100vw' : '(min-width: 768px) 40vw, 100vw'}
             onClick={onClick}
             {...work}
         />
@@ -82,7 +85,7 @@ export function WorkView({
             <Sidebar extraClassNames={['-col -col-1']} fade={displayStyle === 'grid'}>
                 {sidebarContent}
             </Sidebar>
-            <div className={`${styles.pile} -col -col-11`}>
+            <div className={`${styles.pile} -col -col-10`}>
                 {displayAll
                     ? workNodes.map(renderItem)
                     : splitColumns(workNodes).map((column, columnIndex) => (

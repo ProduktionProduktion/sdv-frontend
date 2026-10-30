@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { FaustProvider } from '@faustwp/core';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import { font } from '@/helpers/fonts';
+import { RouteProgress } from '@/components/RouteProgress';
 import blocks from '../wp-blocks';
 import '../faust.config.js';
 
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }) {
                     --font-mono: ${fonts.mono.fontFamily};
                 }
             `}</style>
+            <RouteProgress />
             <WordPressBlocksProvider config={blocks}>
                 <Component {...pageProps} key={router.asPath} />
             </WordPressBlocksProvider>

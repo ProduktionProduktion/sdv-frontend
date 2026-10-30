@@ -5,6 +5,7 @@ import { Figure } from '@/components/Figure';
 import { Sidebar } from '@/components/Sidebar';
 import { Loading } from '@/components/Loading';
 import { useLinkStatus } from 'next/link';
+import NextImage from 'next/image';
 
 export default function Component({ loading, data }) {
     const { pending } = useLinkStatus();
@@ -36,8 +37,16 @@ export default function Component({ loading, data }) {
                         </div>
                     </main>
                     <div className="images -col -col-5" style={{ order: 1 }}>
-                        {imageNodes?.map((image) => (
-                            <Figure key={image.id} src={image.sourceUrl} alt={image.altText} />
+                        {imageNodes?.map(({ id, sourceUrl, altText, mediaDetails: { width, height } }) => (
+                            <Figure
+                                key={id}
+                                src={sourceUrl}
+                                alt={altText}
+                                width={width}
+                                height={height}
+                                sizes="(max-width: 768px) 100vw, 40vw"
+                                ImageComponent={NextImage}
+                            />
                         ))}
                     </div>
                 </article>

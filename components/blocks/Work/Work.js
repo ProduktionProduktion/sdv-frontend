@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { WorkView } from './WorkView';
 // import { ImgFragment } from '@/fragments/Media';
 import NextLink from 'next/link';
+import NextImage from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
@@ -24,7 +25,16 @@ export const Work = ({ key, ...props }) => {
         return () => ro.disconnect();
     }, []);
 
-    return <WorkView ref={containerRef} key={key} linkComponent={NextLink} onClick={onLinkClick} {...props} />;
+    return (
+        <WorkView
+            ref={containerRef}
+            key={key}
+            linkComponent={NextLink}
+            imgComponent={NextImage}
+            onClick={onLinkClick}
+            {...props}
+        />
+    );
 };
 
 const COMPONENT_NAME = 'Work';

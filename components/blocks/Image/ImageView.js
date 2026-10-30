@@ -56,6 +56,7 @@ export function ImageView({
             src={imageProps.src}
             width={imageProps.width}
             height={imageProps.height}
+            sizes="100vw"
             caption={caption}
             ImageComponent={ImgComponent}
         />

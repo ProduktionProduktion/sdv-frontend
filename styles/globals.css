@@ -70,6 +70,8 @@
     --container-width: 100%;
     --grid-column-width: calc(var(--container-width) / var(--grid-column-count));
 
+    --nav-height: 4.5rem;
+
     --sticky-offset: var(--spacer-sm);
 
     /* Sidebar */
@@ -195,6 +197,10 @@ h6,
     &:is(p + .font-mono) {
         margin-top: var(--spacer);
     }
+
+    &.-italic {
+        font-style: italic;
+    }
 }
 
 p:not(:first-of-type) {
@@ -256,6 +262,7 @@ figure {
 }
 
 main.document-content {
+    min-height: calc(100dvh - var(--nav-height));
     > article {
         padding-inline: var(--grid-padding-x);
     }

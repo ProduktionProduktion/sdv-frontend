@@ -9,6 +9,8 @@ export function WorkItem({
     index,
     classNames = { item: 'item', _inner: '_inner', _info: '_info', _shortDescription: '_shortDescription' },
     linkComponent: Link = 'a',
+    imgComponent = 'img',
+    sizes,
     onClick = () => null,
 }) {
     const { shortDescription, metaDescription /*firstDate: firstDateRaw, location*/ } = workPostFields ?? {};
@@ -23,11 +25,13 @@ export function WorkItem({
                     {sourceUrl && (
                         <Figure
                             key={imageId}
-                            alt={altText}
+                            altText={altText}
                             src={sourceUrl}
                             width={width}
                             height={height}
+                            sizes={sizes}
                             caption={caption}
+                            ImageComponent={imgComponent}
                         />
                     )}
                     <div className={classNames._info}>

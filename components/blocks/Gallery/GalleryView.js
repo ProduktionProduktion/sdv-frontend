@@ -16,12 +16,13 @@ export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockS
             {imageNodes.map(({ id, altText, sourceUrl, caption, mediaDetails }) => (
                 <Figure
                     key={id}
-                    alt={altText}
+                    altText={altText}
                     src={sourceUrl}
                     width={mediaDetails?.width}
                     height={mediaDetails?.height}
+                    sizes="300px"
                     caption={caption}
-                    ImgComponent={ImgComponent}
+                    ImageComponent={ImgComponent}
                     className={styles.item}
                 />
             ))}
