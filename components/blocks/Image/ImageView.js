@@ -4,7 +4,7 @@ import { Figure } from '@/components/Figure';
 
 export function ImageView({
     isAttachment,
-    image: { node: imageNode },
+    image,
     externalImage,
     externalImageDimensions,
     caption,
@@ -19,6 +19,7 @@ export function ImageView({
 }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
     const classNames = [...layoutProps.classNames, styles.image];
+    const imageNode = image?.node;
 
     if (bleed) {
         classNames.push('-bleed');

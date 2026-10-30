@@ -9,6 +9,6 @@ export default setConfig({
     templates,
     plugins: [],
     possibleTypes,
-    // useGETForQueries: false,
+    useGETForQueries: false,
     usePersistedQueries: true,
 });

@@ -44,7 +44,7 @@ function splitColumns(nodes) {
 export function WorkView({
     displayAll,
     displayStyle = 'list',
-    work: { nodes: workNodes },
+    work,
     ref,
     linkComponent,
     onClick,
@@ -52,6 +52,12 @@ export function WorkView({
     isChild,
     layoutOptions,
 }) {
+    const workNodes = (work?.nodes ?? []).filter(Boolean);
+
+    if (!workNodes.length) {
+        return null;
+    }
+
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
     const sidebarContent = displayAll ? 'Arbeten' : 'Utvalda arbeten';
     const classNames = [...layoutProps.classNames, styles.work, 'grid'];

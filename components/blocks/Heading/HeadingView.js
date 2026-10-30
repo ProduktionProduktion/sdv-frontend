@@ -3,7 +3,7 @@ import { getLayoutProps } from '../../../helpers';
 export function HeadingView({ align, customSize, heading, tag, layoutOptions, isChild, blockSlug }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
 
-    const Tag = tag ? `${tag}` : `${h2}`;
+    const Tag = tag || 'h2';
     let classNames = [...layoutProps.classNames];
 
     if (align) {
