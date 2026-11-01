@@ -10,24 +10,14 @@ export function ImageView({
     caption,
     alignment,
     customMaxWidth,
-    bleed,
-    biggerOnSm,
     layoutOptions,
     isChild,
     blockSlug,
-    imgComponent: ImgComponent = 'img',
+    ImgComponent = 'img',
 }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
     const classNames = [...layoutProps.classNames, styles.image];
     const imageNode = image?.node;
-
-    if (bleed) {
-        classNames.push('-bleed');
-    }
-
-    if (biggerOnSm) {
-        classNames.push('-bigger-on-sm');
-    }
 
     if (alignment) {
         classNames.push(`-align-${alignment}`);
@@ -50,15 +40,17 @@ export function ImageView({
     };
 
     return (
-        <Figure
-            {...figureProps}
-            altText={imageProps.alt}
-            src={imageProps.src}
-            width={imageProps.width}
-            height={imageProps.height}
-            sizes="100vw"
-            caption={caption}
-            ImageComponent={ImgComponent}
-        />
+        imageProps.src && (
+            <Figure
+                {...figureProps}
+                altText={imageProps.alt}
+                src={imageProps.src}
+                width={imageProps.width}
+                height={imageProps.height}
+                sizes="100vw"
+                caption={caption}
+                ImageComponent={ImgComponent}
+            />
+        )
     );
 }

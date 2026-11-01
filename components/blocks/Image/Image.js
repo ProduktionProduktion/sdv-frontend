@@ -3,7 +3,7 @@ import { ImageView } from './ImageView';
 import { ImgNodeFragment } from '@/fragments/Media';
 import NextImage from 'next/image';
 
-export const Image = ({ key, ...props }) => <ImageView {...props} key={key} imgComponent={NextImage} />;
+export const Image = ({ key, ...props }) => <ImageView {...props} key={key} ImgComponent={NextImage} />;
 
 const COMPONENT_NAME = 'Image';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;
@@ -26,8 +26,6 @@ Image.fragments = {
       caption
       alignment
       customMaxWidth
-      bleed
-      biggerOnSm
       image {
         ...ImgNodeFragment
       }
