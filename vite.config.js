@@ -1,6 +1,32 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, runnerImport } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 import esbuild from 'rollup-plugin-esbuild';
+
+const alias = { '@': fileURLToPath(new URL('./', import.meta.url)) };
+const jsx = () => esbuild({ loader: 'jsx', jsx: 'automatic', jsxImportSource: 'react' });
+
+const emptyCss = {
+    name: 'empty-css',
+    enforce: 'pre',
+    resolveId: (id) => (/\.css$/.test(id) ? '\0empty-css' : null),
+    load: (id) => (id === '\0empty-css' ? 'export default {}' : null),
+};
+
+const graphqlExport = (out) => ({
+    name: 'graphql-export',
+    apply: 'build',
+    async closeBundle() {
+        const { module } = await runnerImport('./cms/graphqlExport.mjs', {
+            configFile: false,
+            logLevel: 'error',
+            resolve: { alias },
+            environments: { inline: { resolve: { noExternal: ['@apollo/client'], mainFields: ['module'] } } },
+            plugins: [emptyCss, jsx()],
+        });
+        const files = module.exportBlockQueries(out);
+        console.log(`\n    Exported ${files.length} block queries into:\n    ${out}\n`);
+    },
+});
 
 // /Users/johanhemgren/Sites/sdv-backend/app/public/web/app/themes/headless/resources/scripts/fromNextJs
 // console.log('import.meta.env.CMS_COMPONENTS_OUTPUT_PATH', import.meta.env.CMS_COMPONENTS_OUTPUT_PATH);
@@ -31,13 +57,7 @@ export default defineConfig(({ mode }) => {
             // outDir: 'cms/dist',
             rollupOptions: {
                 external: ['react', 'react-dom', 'react/jsx-runtime'],
-                plugins: [
-                    esbuild({
-                        loader: 'jsx',
-                        jsx: 'automatic',
-                        jsxImportSource: 'react',
-                    }),
-                ],
+                plugins: [jsx()],
                 output: {
                     globals: {
                         react: 'React',
@@ -47,9 +67,10 @@ export default defineConfig(({ mode }) => {
                 },
             },
         },
+        plugins: [graphqlExport(`${env.CMS_COMPONENTS_OUTPUT_PATH}/graphql/blocks`)],
         resolve: {
             alias: {
-                '@': fileURLToPath(new URL('./', import.meta.url)), // Alias for src folder
+                ...alias, // Alias for src folder
             },
         },
     };

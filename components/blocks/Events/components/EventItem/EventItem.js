@@ -22,10 +22,33 @@ const getDateParts = (date) =>
             .map(({ type, value }) => [type, value]),
     );
 
-export function EventItem({ id, title, eventPostFields, classNames = { item: 'item', _inner: '_inner' } }) {
-    const { date, shortDescription } = eventPostFields || {};
+const getEventButton = (eventLink, eventPermalink, hideButton, eventTitle, LinkComponent, props = {}) => {
+    if (hideButton || (!eventLink && !eventPermalink)) return null;
+
+    const { className = 'button outline', ...restProps } = props;
+    const buttonUrl = eventLink?.url || eventPermalink;
+    const buttonProps = {
+        href: buttonUrl,
+        className,
+        ...(eventLink?.target && { target: eventLink.target }),
+        ...restProps,
+    };
+
+    return <LinkComponent {...buttonProps}>{eventLink?.title || eventTitle || 'Läs mer'}</LinkComponent>;
+};
+
+export function EventItem({
+    id,
+    title,
+    link,
+    eventPostFields,
+    LinkComponent = 'a',
+    classNames = { item: 'item', _inner: '_inner' },
+}) {
+    const { date, shortDescription, eventLink, hideButton } = eventPostFields || {};
     const parsedDate = parseDate(date);
     const dateParts = parsedDate ? getDateParts(parsedDate) : null;
+    const EventButton = getEventButton(eventLink, link, hideButton, title, LinkComponent);
 
     return (
         <article key={id} className={classNames.item}>
@@ -48,6 +71,7 @@ export function EventItem({ id, title, eventPostFields, classNames = { item: 'it
                 {shortDescription && (
                     <div className={classNames._description} dangerouslySetInnerHTML={{ __html: shortDescription }} />
                 )}
+                {EventButton && <div className={classNames._button}>{EventButton}</div>}
             </div>
         </article>
     );

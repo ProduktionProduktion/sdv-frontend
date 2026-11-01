@@ -1,4 +1,6 @@
 .marquee {
+    --marquee-duration: 20s;
+
     position: relative;
     display: flex;
     width: 100%;
@@ -27,7 +29,7 @@
     display: flex;
     flex-wrap: nowrap;
     width: max-content;
-    animation: marquee var(--marquee-duration, 20s) linear infinite;
+    animation: marquee var(--marquee-duration) linear infinite;
     will-change: transform;
 }
 

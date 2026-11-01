@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 import { ButtonsView } from './ButtonsView';
+import NextLink from 'next/link';
 
-export const Buttons = ({ key, ...props }) => <ButtonsView key={key} {...props} />;
+export const Buttons = ({ key, ...props }) => <ButtonsView key={key} LinkComponent={NextLink} {...props} />;
 
 const COMPONENT_NAME = 'Buttons';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;
@@ -14,6 +15,7 @@ Buttons.fragments = {
     acfSlug: ACF_SLUG,
     entry: gql`
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
+      align
       buttons {
         link {
           target

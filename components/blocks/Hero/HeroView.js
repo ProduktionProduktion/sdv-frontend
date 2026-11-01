@@ -1,16 +1,16 @@
-import { ButtonsView } from "../Buttons/ButtonsView";
-import { getLayoutProps } from '../../../helpers';
+import { ButtonsView } from '../Buttons/ButtonsView';
+import { getLayoutProps } from '@/helpers';
 
 export function HeroView({ heading, preamble, type, buttons, layoutOptions, isChild, blockSlug }) {
-  const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
-  
-  return (
-    <div {...layoutProps.attributes} style={layoutProps.styles} className={layoutProps.classNames.join(' ')}>
-      <h1>{heading}</h1>
-      <p>{preamble}</p>
-      <div>
-        <ButtonsView buttons={buttons} />
-      </div>
-    </div>
-  );
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+
+    return (
+        <div {...layoutProps.attributes} style={layoutProps.styles} className={layoutProps.classNames.join(' ')}>
+            <h1>{heading}</h1>
+            <p>{preamble}</p>
+            <div>
+                <ButtonsView buttons={buttons} />
+            </div>
+        </div>
+    );
 }

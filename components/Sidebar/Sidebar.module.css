@@ -16,7 +16,7 @@
     font-size: var(--font-size-sm);
     font-weight: 300;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
         display: block;
     }
 
@@ -33,13 +33,13 @@
     }
 
     &.fade {
-        padding-top: var(--pile-margin-top);
+        padding-top: var(--pile-animation-offset);
 
         @supports (animation-timeline: scroll()) {
             @media (prefers-reduced-motion: no-preference) {
                 animation: sidebar-fade ease both;
                 animation-timeline: scroll(root);
-                animation-range: 0 calc(var(--work-top, 50vh) + var(--pile-margin-top));
+                animation-range: 0 calc(var(--work-top, 50vh) + var(--pile-animation-offset));
             }
         }
     }

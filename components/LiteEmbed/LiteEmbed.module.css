@@ -1,0 +1,85 @@
+.liteEmbed {
+    --lite-embed-aspect-ratio: 16 / 9;
+    --lite-embed-background-color: var(--color-dark);
+    --lite-embed-button-size: 4.5rem;
+    --lite-embed-button-color: var(--color-light);
+    --lite-embed-button-background: rgb(from var(--color-dark) r g b / 0.6);
+    --lite-embed-button-background-hover: var(--color-theme);
+
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--lite-embed-aspect-ratio);
+    overflow: hidden;
+    background-color: var(--lite-embed-background-color);
+    contain: content;
+
+    .poster,
+    .player,
+    .player > iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .poster {
+        object-fit: cover;
+        transition: opacity 0.4s ease;
+    }
+
+    .playButton {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            width: var(--lite-embed-button-size);
+            aspect-ratio: 1;
+            border-radius: var(--border-radius-pill);
+            background-color: var(--lite-embed-button-background);
+            backdrop-filter: blur(4px);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: calc(var(--lite-embed-button-size) * 0.32);
+            aspect-ratio: 0.866;
+            margin-left: calc(var(--lite-embed-button-size) * 0.06);
+            background-color: var(--lite-embed-button-color);
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        &:hover::before,
+        &:focus-visible::before {
+            background-color: var(--lite-embed-button-background-hover);
+            transform: scale(1.08);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--lite-embed-button-background-hover);
+            outline-offset: -2px;
+        }
+    }
+
+    &.activated {
+        cursor: unset;
+
+        .poster {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}

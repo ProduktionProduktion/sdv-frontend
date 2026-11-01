@@ -3,6 +3,18 @@
 }
 
 .events {
+    --event-item-gap: var(--spacer-sm);
+    --event-item-padding-x: var(--spacer-md);
+    --event-item-padding-top: var(--spacer-sm);
+    --event-item-padding-bottom: var(--spacer);
+
+    @media (min-width: 768px) {
+        --event-item-gap: var(--spacer);
+        --event-item-padding-x: var(--spacer-lg);
+        --event-item-padding-top: var(--spacer);
+        --event-item-padding-bottom: var(--spacer-md);
+    }
+
     .scroller {
         --item-width: 100%;
 
@@ -41,6 +53,7 @@
 
         .item {
             flex: 0 0 calc(var(--item-width) - var(--grid-gutter) * 2 / 3);
+            min-width: 0;
             scroll-snap-align: start;
 
             ._inner {
@@ -48,24 +61,25 @@
                 flex-direction: column;
                 gap: 0;
                 height: 100%;
-                padding-block: var(--spacer) var(--spacer-md);
-                border: 1px solid currentColor;
+                padding-block: var(--event-item-padding-top) var(--event-item-padding-bottom);
+                border: var(--border-width) solid currentColor;
                 border-radius: var(--border-radius);
             }
 
             ._date,
             ._title,
-            ._description {
-                padding-inline: var(--spacer-lg);
+            ._description,
+            ._button {
+                padding-inline: var(--event-item-padding-x);
             }
 
             ._date {
                 text-align: center;
-                border-bottom: 1px solid currentColor;
+                border-bottom: var(--border-width) solid currentColor;
                 font-family: var(--font-mono);
                 font-size: var(--font-size-sm);
                 font-weight: 300;
-                padding-bottom: var(--spacer);
+                padding-bottom: var(--event-item-gap);
 
                 ._weekday {
                 }
@@ -99,6 +113,17 @@
                 > :last-child {
                     margin-bottom: 0;
                 }
+            }
+
+            ._button {
+                min-width: 0;
+                margin-top: auto;
+                padding-top: var(--event-item-gap);
+            }
+
+            :global(.button) {
+                --btn-color: var(--background);
+                max-width: 100%;
             }
         }
     }

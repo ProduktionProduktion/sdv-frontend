@@ -7,6 +7,7 @@ export { Image } from './Image';
 export { Section } from './Section';
 export { Work } from './Work';
 export { Events } from './Events';
+export { Video } from './Video';
 
 /**
  * When adding new blocks, make sure to add them in:

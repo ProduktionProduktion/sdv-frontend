@@ -1,4 +1,4 @@
-import { getLayoutProps } from '../../../helpers';
+import { getLayoutProps } from '@/helpers';
 
 export function HeadingView({ align, customSize, heading, tag, layoutOptions, isChild, blockSlug }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);

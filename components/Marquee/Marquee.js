@@ -1,6 +1,7 @@
 import styles from './Marquee.module.css';
 
 export const Marquee = ({ children, left = true, duration = 20, pauseOnHover = true, ...props }) => {
+    // const marqueeClasses = [styles.marquee, 'h1'];
     const marqueeClasses = [styles.marquee, 'font-mono -italic'];
 
     if (left) {

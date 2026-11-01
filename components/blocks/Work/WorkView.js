@@ -1,5 +1,5 @@
 import styles from './Work.module.css';
-import { getLayoutProps } from '../../../helpers';
+import { getLayoutProps } from '@/helpers';
 import { WorkItem } from './components/WorkItem';
 import { Sidebar } from '@/components/Sidebar';
 

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { EventsView } from './EventsView';
+import { LinkFragment } from '../../../fragments/Link';
 
 export const Events = ({ key, ...props }) => <EventsView key={key} {...props} />;
 
@@ -13,16 +14,23 @@ Events.fragments = {
     acfName: ACF_NAME,
     acfSlug: ACF_SLUG,
     entry: gql`
+    ${LinkFragment}
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
       displayUpcoming
+      customHeading
       events { #field
         nodes { #posts
           ... on EventPost { #post_type
             id #post (event) > id
             title #post (event) > title
+            link
             eventPostFields {
               date
               shortDescription
+              eventLink {
+                ...LinkFragment
+              }
+              hideButton
             }
           }
         }

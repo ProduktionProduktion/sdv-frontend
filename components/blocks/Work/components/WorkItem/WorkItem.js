@@ -21,7 +21,7 @@ export function WorkItem({
     return (
         <>
             <article onClick={() => onClick(uri)} key={id} data-index={index} className={`${classNames.item}`}>
-                <div className={classNames._inner}>
+                <Link href={uri} className={classNames._inner}>
                     {sourceUrl && (
                         <Figure
                             key={imageId}
@@ -32,20 +32,25 @@ export function WorkItem({
                             sizes={sizes}
                             caption={caption}
                             ImageComponent={imgComponent}
+                            loading={[0, 1, 2, 3].includes(index) ? 'eager' : 'lazy'}
                         />
                     )}
-                    <div className={classNames._info}>
-                        <h1>{title}</h1>
-                        {shortDescription && <main className={classNames._shortDescription}>{shortDescription}</main>}
-                        {metaDescription && (
-                            <aside
-                                className={`${classNames._meta} font-mono`}
-                                dangerouslySetInnerHTML={{ __html: metaDescription }}
-                            />
-                        )}
-                        <Link className="visually-hidden" href={uri}>{`Go to "${title}"`}</Link>
+                    <div className={classNames._infoWrap}>
+                        <div className={classNames._info}>
+                            <h1>{title}</h1>
+                            {shortDescription && (
+                                <main className={classNames._shortDescription}>{shortDescription}</main>
+                            )}
+                            {metaDescription && (
+                                <aside
+                                    className={`${classNames._meta} font-mono`}
+                                    dangerouslySetInnerHTML={{ __html: metaDescription }}
+                                />
+                            )}
+                            {/* <Link className="visually-hidden" href={uri}>{`Go to "${title}"`}</Link> */}
+                        </div>
                     </div>
-                </div>
+                </Link>
             </article>
         </>
     );

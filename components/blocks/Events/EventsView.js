@@ -1,9 +1,9 @@
 import styles from './Events.module.css';
-import { getLayoutProps } from '../../../helpers';
+import { getLayoutProps } from '@/helpers';
 import { EventItem } from './components/EventItem';
 import { Header } from './components/Header';
 
-export function EventsView({ events, displayUpcoming, blockSlug, isChild, layoutOptions }) {
+export function EventsView({ events, displayUpcoming, customHeading, blockSlug, isChild, layoutOptions }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
     const classNames = [...layoutProps.classNames, styles.events];
     const eventNodes = events?.nodes ?? [];
@@ -16,7 +16,7 @@ export function EventsView({ events, displayUpcoming, blockSlug, isChild, layout
         classNames.push(styles.displayUpcoming);
     }
 
-    const title = displayUpcoming ? 'Kommande evenemang' : 'Evenemang';
+    const title = customHeading || (displayUpcoming ? 'Kommande evenemang' : 'Evenemang');
 
     return (
         <div {...layoutProps.attributes} className={classNames.join(' ')} style={layoutProps.styles}>

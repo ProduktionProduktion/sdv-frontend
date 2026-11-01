@@ -1,4 +1,4 @@
-import { getLayoutProps } from '../../../helpers';
+import { getLayoutProps } from '@/helpers';
 import styles from './Section.module.css';
 
 export function SectionView({ children, verticalAlignment, layoutOptions, isChild, blockSlug }) {

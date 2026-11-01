@@ -1,5 +1,5 @@
 import styles from './Gallery.module.css';
-import { getLayoutProps } from '../../../helpers';
+import { getLayoutProps } from '@/helpers';
 import { Figure } from '@/components/Figure';
 
 export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockSlug, isChild, layoutOptions }) {

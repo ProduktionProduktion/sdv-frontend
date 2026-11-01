@@ -8,11 +8,21 @@ export const Figure = ({
     sizes,
     caption = null,
     ImageComponent = 'img',
+    loading = 'lazy',
+    ...props
 }) => {
-    // console.log({ id, className, altText, src, width, height, caption, ImageComponent });
+    const classNames = [className, width < height ? '-portrait' : '-landscape'].filter(Boolean).join(' ');
+
     return (
-        <figure key={id} className={className}>
-            <ImageComponent alt={altText ?? ''} src={src} width={width} height={height} sizes={sizes} />
+        <figure key={id} className={classNames} {...props}>
+            <ImageComponent
+                alt={altText ?? ''}
+                src={src}
+                width={width}
+                height={height}
+                sizes={sizes}
+                loading={loading}
+            />
             {caption && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
         </figure>
     );

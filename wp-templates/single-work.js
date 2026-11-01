@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
+import { useLinkStatus } from 'next/link';
+import NextImage from 'next/image';
+import styles from '@/styles/single-work.module.css';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Figure } from '@/components/Figure';
 import { Sidebar } from '@/components/Sidebar';
 import { Loading } from '@/components/Loading';
-import { useLinkStatus } from 'next/link';
-import NextImage from 'next/image';
 
 export default function Component({ loading, data }) {
     const { pending } = useLinkStatus();
@@ -27,25 +28,26 @@ export default function Component({ loading, data }) {
     return (
         <>
             <Header menuItems={headerMenuItems?.nodes} />
-            <main className="document-content work">
+            <main className={`document-content ${styles.work}`}>
                 <article className="grid">
                     <Sidebar extraClassNames={['-col -col-1']}>{'Arbete > ' + title}</Sidebar>
                     <main className="-col -col-5" style={{ order: 2 }}>
-                        <div className="content">
+                        <div className={styles.content}>
                             <h1>{title}</h1>
                             <div dangerouslySetInnerHTML={{ __html: description ?? '' }} />
                         </div>
                     </main>
-                    <div className="images -col -col-5" style={{ order: 1 }}>
-                        {imageNodes?.map(({ id, sourceUrl, altText, mediaDetails: { width, height } }) => (
+                    <div className={`${styles.images} -col -col-5`} style={{ order: 1 }}>
+                        {imageNodes?.map(({ id, sourceUrl, altText, mediaDetails: { width, height } }, index) => (
                             <Figure
                                 key={id}
                                 src={sourceUrl}
-                                alt={altText}
+                                altText={altText}
                                 width={width}
                                 height={height}
                                 sizes="(max-width: 768px) 100vw, 40vw"
                                 ImageComponent={NextImage}
+                                loading={[0, 1].includes(index) ? 'eager' : 'lazy'}
                             />
                         ))}
                     </div>
