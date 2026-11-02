@@ -23,7 +23,7 @@ export const Figure = ({
                 sizes={sizes}
                 loading={loading}
             />
-            {caption && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
+            {caption && caption !== '' && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
         </figure>
     );
 };

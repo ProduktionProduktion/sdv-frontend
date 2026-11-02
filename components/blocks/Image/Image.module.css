@@ -1,4 +1,7 @@
 .image {
-  border-radius: 1rem;
-  overflow: hidden;
+    img {
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow-lg);
+        /* overflow: hidden; */
+    }
 }
