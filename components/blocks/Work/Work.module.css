@@ -292,7 +292,6 @@
 
                 ._inner {
                     padding-bottom: var(--spacer);
-                    margin-bottom: var(--spacer);
                     border-bottom: var(--border-width) solid var(--foreground);
 
                     figure {
@@ -307,6 +306,7 @@
                         transition: opacity 0.3s ease;
                         mix-blend-mode: multiply;
                         filter: saturate(0) brightness(2.25) contrast(0.33);
+                        pointer-events: none;
 
                         img {
                             width: 100%;
@@ -356,6 +356,12 @@
                         figure {
                             opacity: 0.55;
                         }
+                    }
+                }
+
+                &:not(:first-child) {
+                    ._inner {
+                        padding-top: var(--spacer);
                     }
                 }
             }
