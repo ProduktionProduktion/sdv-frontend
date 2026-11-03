@@ -10,11 +10,17 @@ export default function Component({ loading, data }) {
         return <Loading text="THINKING" />;
     }
 
-    const { headerMenuItems, post, footerSidebar } = data;
+    const { headerMenuItems, post, footerSidebar, generalSettings } = data;
+    const { title: siteTitle, description: siteDescription } = generalSettings;
 
     return (
         <>
-            <Header menuItems={headerMenuItems?.nodes} />
+            <Header
+                menuItems={headerMenuItems?.nodes}
+                viewTitle={post?.title}
+                siteTitle={siteTitle}
+                siteDescription={siteDescription}
+            />
             <BlocksComponentMap data={post} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
         </>

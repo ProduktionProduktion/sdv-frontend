@@ -16,11 +16,7 @@ export default function Component({ loading, data }) {
 
     return (
         <>
-            <Head>
-                <title>{siteTitle}</title>
-                <meta name="description" content={siteDescription} />
-            </Head>
-            <Header title={siteTitle} description={siteDescription} menuItems={headerMenuItems?.nodes} />
+            <Header siteTitle={siteTitle} siteDescription={siteDescription} menuItems={headerMenuItems?.nodes} />
             <BlocksComponentMap data={nodeByUri} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
         </>
@@ -34,6 +30,7 @@ Component.query = gql`
     query GetFrontPage {
         nodeByUri(uri: "/") {
             ... on Page {
+                title
                 ...BlockEditorFragment
             }
         }

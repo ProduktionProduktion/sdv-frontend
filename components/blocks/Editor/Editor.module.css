@@ -7,3 +7,170 @@
     column-count: 3;
     column-gap: var(--grid-gutter);
 }
+
+:global(.m-editor) {
+    :global(._sidenote) {
+        display: none;
+    }
+
+    :global(._note-ref),
+    :global(._sidenote),
+    :global(._note-num),
+    :global(._notes) {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-mono);
+        font-weight: var(--font-weight-mono);
+    }
+
+    :global(._note-ref),
+    :global(._note-num),
+    :global(._sidenote) {
+        font-size: var(--font-size-xs);
+    }
+
+    :global(._note-num),
+    :global(._note-ref) {
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+
+    :global(._note-ref) {
+        margin-inline: 0.25em;
+    }
+
+    :global(._notes) {
+        margin-top: var(--spacer);
+        padding-top: var(--spacer);
+        padding-left: 2em;
+        border-top: var(--border-width) solid currentColor;
+    }
+
+    &:not(:global(.-dont-limit-width)) {
+        ._inner {
+            > * {
+                max-width: var(--text-max-width);
+            }
+        }
+    }
+
+    &:not(&:global(.-dont-limit-width), &:global(.-columns-2), &:global(.-columns-3)) {
+        /* Inherit from parent context:
+        --col: 10;
+        */
+        --parent-col: var(--col, 12);
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(var(--parent-col), 1fr);
+
+            ._inner {
+                --sidenote-width: calc(2 * (100cqi + var(--grid-gutter)) / var(--col) - var(--grid-gutter));
+
+                container-type: inline-size;
+
+                :global(._sidenote) {
+                    display: block;
+                    float: left;
+                    clear: left;
+                    width: var(--sidenote-width, 16rem);
+                    margin-left: calc(-1 * (var(--sidenote-width, 16rem) + var(--grid-gutter)));
+                    margin-bottom: var(--spacer);
+                    hyphens: auto;
+                    overflow: hidden;
+
+                    &:target {
+                        background-color: red;
+                    }
+
+                    :global(._note-num) {
+                        text-transform: super;
+                    }
+                }
+            }
+
+            :global(._notes) {
+                display: none;
+            }
+        }
+    }
+
+    /* :global(._note-ref),
+    :global(._notes) {
+        font-family: var(--font-mono);
+        font-size: var(--font-size-mono);
+        font-weight: var(--font-weight-mono);
+    }
+
+    :global(._note-ref) {
+        padding-inline: 0.25em;
+        line-height: 0;
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    :global(._notes) {
+        padding-inline-start: 1.5em;
+        font-size: var(--font-size-sm);
+
+        &.-first {
+            margin-top: var(--spacer);
+        }
+
+        li + li {
+            margin-top: 0.5em;
+        }
+    }
+
+    ._note-back {
+        text-decoration: none;
+    } */
+}
+
+/* :global(.m-editor.-has-notes) {
+    > * {
+        grid-column: 1 / -1;
+    }
+
+    > :not(:global(._notes)) {
+        width: 100%;
+        margin-inline: 0;
+        justify-self: center;
+    }
+
+    > ._notes {
+        order: 1;
+        width: 100%;
+        max-width: var(--text-max-width);
+        justify-self: center;
+    }
+
+    > p:has(+ ._notes) {
+        margin-bottom: 0;
+    }
+
+    > p:has(+ ._notes + :not(p)) {
+        margin-bottom: var(--spacer);
+    }
+
+    > p + ._notes + p {
+        text-indent: 1em;
+    }
+
+    @media (min-width: 1024px) {
+        > :not(._notes) {
+            grid-column: 1 / span 8;
+            justify-self: end;
+        }
+
+        > ._notes {
+            grid-column: 9 / span 2;
+            order: 0;
+            align-self: start;
+
+            &.-first {
+                margin-top: 0;
+            }
+        }
+    }
+} */

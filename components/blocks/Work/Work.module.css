@@ -297,7 +297,7 @@
 
                     figure {
                         position: fixed;
-                        z-index: -1;
+                        z-index: 0;
                         inset: 50% auto auto 50%;
                         transform: translate(-50%, -50%);
                         width: auto;
@@ -315,43 +315,47 @@
                         }
                     }
 
-                    ._info {
-                        h1 {
-                            grid-column: 1;
-                            grid-row: 1;
-                            text-align: right;
-                            font-size: var(--font-size);
-                            line-height: var(--line-height);
-                        }
+                    ._infoWrap {
+                        z-index: 1;
 
-                        ._shortDescription {
-                            grid-column: 2;
-                            grid-row: 1 / -1;
-                            margin-bottom: var(--spacer);
-                            display: -webkit-box;
-                            -webkit-box-orient: vertical;
-                            -webkit-line-clamp: 6;
-                            line-clamp: 6;
-                            overflow: hidden;
-                        }
-
-                        ._meta {
-                            grid-column: 1;
-                            grid-row: 2;
-                            text-align: right;
-
-                            @media screen and (min-width: 1024px) {
-                                grid-column: 3;
+                        ._info {
+                            h1 {
+                                grid-column: 1;
                                 grid-row: 1;
+                                text-align: right;
+                                font-size: var(--font-size);
+                                line-height: var(--line-height);
+                            }
+
+                            ._shortDescription {
+                                grid-column: 2;
+                                grid-row: 1 / -1;
+                                margin-bottom: var(--spacer);
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 6;
+                                line-clamp: 6;
+                                overflow: hidden;
+                            }
+
+                            ._meta {
+                                grid-column: 1;
+                                grid-row: 2;
+                                text-align: right;
+
+                                @media screen and (min-width: 1024px) {
+                                    grid-column: 3;
+                                    grid-row: 1;
+                                }
                             }
                         }
                     }
-                }
 
-                &:hover,
-                &:focus-visible {
-                    figure {
-                        opacity: 0.55;
+                    &:hover,
+                    &:focus-visible {
+                        figure {
+                            opacity: 0.55;
+                        }
                     }
                 }
             }

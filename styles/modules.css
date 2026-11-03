@@ -48,4 +48,29 @@
     &.-align-self-bottom {
         align-self: flex-end;
     }
+
+    &.-limit-width:not(:is(.m-section .m:not(.m-section))) {
+        --_offset: min(var(--offset, 0), var(--grid-column-count) - var(--col));
+        --_track: calc((100% - 2 * var(--grid-padding-x) + var(--grid-gutter)) / var(--grid-column-count));
+
+        @media (min-width: 768px) {
+            --col: 10;
+            --offset: 2;
+
+            margin-inline-start: calc(var(--_offset) * var(--_track));
+            margin-inline-end: calc((var(--grid-column-count) - var(--col) - var(--_offset)) * var(--_track));
+        }
+
+        @media (min-width: 992px) {
+            --col: 7;
+            --offset: 3;
+        }
+        /* max-width: calc(var(--text-max-width) + (var(--grid-padding-x) * 2));
+        margin-inline: auto; */
+    }
+
+    &:last-child:is(main.document-content > .m) {
+        padding-bottom: max(var(--spacer-xl), calc(var(--padding-bottom) * var(--m-space-unit)));
+        /* margin-bottom: min(var(--spacer-xl), calc(var(--margin-bottom) * var(--m-space-unit))); */
+    }
 }

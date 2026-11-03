@@ -22,7 +22,7 @@ const getDateParts = (date) =>
             .map(({ type, value }) => [type, value]),
     );
 
-const getEventButton = (eventLink, eventPermalink, hideButton, eventTitle, LinkComponent, props = {}) => {
+const getEventButton = (eventLink, eventPermalink, hideButton = true, eventTitle, LinkComponent, props = {}) => {
     if (hideButton || (!eventLink && !eventPermalink)) return null;
 
     const { className = 'button outline', ...restProps } = props;

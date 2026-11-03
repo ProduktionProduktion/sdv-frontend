@@ -6,6 +6,24 @@ export const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const getViewTitle = (title, siteTitle, parentTitle = null) => {
+    if (title) {
+        if (parentTitle) {
+            return `${decodeHTMLEntities(title)} > ${decodeHTMLEntities(parentTitle)} > ${decodeHTMLEntities(siteTitle)}`;
+        }
+        return `${decodeHTMLEntities(title)} > ${decodeHTMLEntities(siteTitle)}`;
+    }
+
+    return decodeHTMLEntities(siteTitle) || 'SDV';
+};
+
+export function decodeHTMLEntities(text) {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+
+    return textArea.value;
+}
+
 export const flattenArray = (array) =>
     array.reduce((a, b) => {
         if (Array.isArray(b)) {

@@ -10,6 +10,7 @@ import '../faust.config.js';
  * TODO: Export these (↓) into WP
  */
 import '@/styles/globals.css';
+import '@/styles/grid.css';
 import '@/styles/modules.css';
 
 export default function App({ Component, pageProps }) {

@@ -1,4 +1,5 @@
 import { getLayoutProps } from '@/helpers';
+// import styles from './Heading.module.css';
 
 export function HeadingView({ align, customSize, heading, tag, layoutOptions, isChild, blockSlug }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
@@ -15,8 +16,11 @@ export function HeadingView({ align, customSize, heading, tag, layoutOptions, is
     }
 
     return (
-        <Tag {...layoutProps.attributes} style={layoutProps.styles} className={classNames.join(' ')}>
-            {heading}
-        </Tag>
+        <Tag
+            {...layoutProps.attributes}
+            style={layoutProps.styles}
+            className={classNames.join(' ')}
+            dangerouslySetInnerHTML={{ __html: heading }}
+        />
     );
 }

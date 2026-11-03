@@ -20,7 +20,7 @@ export function WorkItem({
 
     return (
         <>
-            <article onClick={() => onClick(uri)} key={id} data-index={index} className={`${classNames.item}`}>
+            <article onClick={() => onClick(uri)} key={id} data-index={index + 1} className={`${classNames.item}`}>
                 <Link href={uri} className={classNames._inner}>
                     {sourceUrl && (
                         <Figure

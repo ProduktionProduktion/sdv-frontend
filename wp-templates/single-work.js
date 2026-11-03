@@ -22,12 +22,20 @@ export default function Component({ loading, data }) {
             workPostFields: { images, description },
         },
         footerSidebar,
+        generalSettings,
     } = data;
+    const { title: siteTitle, description: siteDescription } = generalSettings;
     const imageNodes = images?.nodes || [];
 
     return (
         <>
-            <Header menuItems={headerMenuItems?.nodes} />
+            <Header
+                menuItems={headerMenuItems?.nodes}
+                parentTitle="Arbete"
+                viewTitle={title}
+                siteTitle={siteTitle}
+                siteDescription={siteDescription}
+            />
             <main className={`document-content ${styles.work}`}>
                 <article className="grid">
                     <Sidebar extraClassNames={['-col -col-1']}>{'Arbete > ' + title}</Sidebar>

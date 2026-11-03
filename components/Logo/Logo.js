@@ -12,7 +12,7 @@ export const Logo = ({ title, description, className = '', symbol = false }) => 
             height={36}
             fill="none"
             className={classNames}>
-            <title id="logo-title">{title}</title>
+            <title id="logo-title" dangerouslySetInnerHTML={{ __html: title }} />
             <desc id="logo-desc">{description}</desc>
             <path
                 className={styles.colored}

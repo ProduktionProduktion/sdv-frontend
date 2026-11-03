@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Loading } from '@/components/Loading';
 import { useLinkStatus } from 'next/link';
+import { getViewTitle } from '@/helpers';
 
 export default function Component({ loading, data }) {
     const { pending } = useLinkStatus();
@@ -13,12 +14,17 @@ export default function Component({ loading, data }) {
         return <Loading text="THINKING" />;
     }
 
-    const { page, headerMenuItems, footerSidebar } = data;
-    const title = page?.title;
+    const { page, headerMenuItems, footerSidebar, generalSettings } = data;
+    const { title: siteTitle, description: siteDescription } = generalSettings;
 
     return (
         <>
-            <Header title={title} menuItems={headerMenuItems?.nodes} />
+            <Header
+                viewTitle={page?.title}
+                siteTitle={siteTitle}
+                siteDescription={siteDescription}
+                menuItems={headerMenuItems?.nodes}
+            />
             <BlocksComponentMap data={page} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
         </>

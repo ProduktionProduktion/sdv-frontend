@@ -4,18 +4,25 @@ import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '@/fragments/GeneralSettings';
 import { Logo } from '@/components/Logo';
 import styles from './Header.module.css';
-export default function Header({ title = 'Headless by WP Engine', description, menuItems }) {
+import { getViewTitle } from '@/helpers';
+import Head from 'next/head';
+export default function Header({ siteTitle, siteDescription, viewTitle = null, menuItems, parentTitle = null }) {
+    const title = getViewTitle(viewTitle, siteTitle, parentTitle);
+
     return (
         <>
+            <Head>
+                <title>{title}</title>
+            </Head>
             <header className="document-header">
                 <div className={styles.navbar}>
                     <Link href="/" className={styles.brand}>
-                        <Logo title={title} description={description} />
+                        <Logo title={siteTitle} description={siteDescription} />
                     </Link>
-                    {description && <p className="description">{description}</p>}
+                    {siteDescription && <p className="description">{siteDescription}</p>}
                     <NavigationMenu className={['primary-navigation'].join(' ')} menuItems={menuItems} />
                 </div>
-                <Logo className={styles.symbol} title={title} description={description} symbol />
+                <Logo className={styles.symbol} title={siteTitle} description={siteDescription} symbol />
             </header>
         </>
     );

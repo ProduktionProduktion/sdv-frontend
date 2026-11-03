@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { EditorView } from './EditorView';
 
-export const Editor = ({ content, dontLimitWidth, columns, key, ...props }) => {
-    return <EditorView content={content} dontLimitWidth={dontLimitWidth} columns={columns} key={key} {...props} />;
+export const Editor = ({ key, ...props }) => {
+    return <EditorView key={key} {...props} />;
 };
 
 const COMPONENT_NAME = 'Editor';
@@ -19,6 +19,7 @@ Editor.fragments = {
       content
       dontLimitWidth
       columns
+      align
     }
   `,
 };

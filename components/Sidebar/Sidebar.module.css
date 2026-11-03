@@ -13,8 +13,8 @@
     display: none;
     text-align: right;
     font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
-    font-weight: 300;
+    font-size: var(--font-size-mono);
+    font-weight: var(--font-weight-mono);
 
     @media screen and (min-width: 1024px) {
         display: block;

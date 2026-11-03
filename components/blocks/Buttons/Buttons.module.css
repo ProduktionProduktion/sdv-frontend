@@ -13,17 +13,17 @@
     display: inline-block;
     max-width: 100%;
     vertical-align: middle;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     padding: var(--btn-padding-y) var(--btn-padding-x);
     border: var(--border-width-light) solid var(--btn-color);
     border-radius: var(--border-radius-pill);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
-    font-weight: 300;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    font-weight: var(--font-weight-mono);
     transition:
         background-color 0.2s ease,
         color 0.2s ease;

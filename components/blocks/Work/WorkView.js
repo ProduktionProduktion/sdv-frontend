@@ -70,7 +70,7 @@ export function WorkView({
     const renderItem = (work, index) => (
         <WorkItem
             key={work.id}
-            index={index + 1}
+            index={index}
             classNames={styles}
             linkComponent={linkComponent}
             imgComponent={imgComponent}

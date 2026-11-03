@@ -74,12 +74,12 @@
             }
 
             ._date {
+                padding-bottom: var(--event-item-gap);
                 text-align: center;
                 border-bottom: var(--border-width) solid currentColor;
                 font-family: var(--font-mono);
-                font-size: var(--font-size-sm);
-                font-weight: 300;
-                padding-bottom: var(--event-item-gap);
+                font-size: var(--font-size-mono);
+                font-weight: var(--font-weight-mono);
 
                 ._weekday {
                 }
