@@ -48,9 +48,9 @@ export default defineConfig(({ mode }) => {
     return {
         build: {
             lib: {
-                entry: 'cms/wordpressComponent.js',
-                name: 'wordpressComponent',
-                fileName: 'wordpressComponent.min',
+                entry: 'cms/cmsComponent.js',
+                name: 'cmsComponent',
+                fileName: 'cmsComponent.min',
                 formats: ['es'],
             },
             outDir,

@@ -13,5 +13,5 @@ export { VideoView as Video } from './Video/VideoView';
  * When adding new blocks, make sure to add them in these files:
  * - @/components/BlocksComponentMap/BlocksComponentMap.js
  * - @/fragments/BlockEditor.js
- * - @/cms/wordpressComponent.js
+ * - @/cms/cmsComponent.js
  */
