@@ -1,10 +1,12 @@
-import dynamic from 'next/dynamic';
-
-const frontPage = dynamic(() => import('./front-page.js'));
-const page = dynamic(() => import('./page.js'));
-const single = dynamic(() => import('./single.js'));
-const workPost = dynamic(() => import('./single-work.js'));
-const eventPost = dynamic(() => import('./single-event.js'));
+/**
+ * Static imports: Faust's WordPressTemplate renders nothing during SSR for dynamic() templates,
+ * which would leave crawlers without content or meta tags.
+ */
+import frontPage from './front-page.js';
+import page from './page.js';
+import single from './single.js';
+import workPost from './single-work.js';
+import eventPost from './single-event.js';
 
 const templates = {
     'front-page': frontPage,

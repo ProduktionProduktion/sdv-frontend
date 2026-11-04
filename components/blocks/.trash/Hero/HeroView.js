@@ -1,4 +1,4 @@
-import { ButtonsView } from '../Buttons/ButtonsView';
+import { ButtonsView } from '../../Buttons/ButtonsView';
 import { getLayoutProps } from '@/helpers';
 
 export function HeroView({ heading, preamble, type, buttons, layoutOptions, isChild, blockSlug }) {

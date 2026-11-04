@@ -46,6 +46,7 @@ export default defineConfig(({ mode }) => {
   `);
 
     return {
+        publicDir: false,
         build: {
             lib: {
                 entry: 'cms/cmsComponent.js',

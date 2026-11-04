@@ -1,7 +1,3 @@
-:global(.m-events:not(:is(.m-section .m:not(.m-section)))) {
-    padding-inline: 0;
-}
-
 .events {
     --event-item-gap: var(--spacer-sm);
     --event-item-padding-x: var(--spacer-md);
@@ -13,6 +9,10 @@
         --event-item-padding-x: var(--spacer-lg);
         --event-item-padding-top: var(--spacer);
         --event-item-padding-bottom: var(--spacer-md);
+    }
+
+    &:global(.m-events:not(:is(.m-section .m:not(.m-section)))) {
+        padding-inline: 0;
     }
 
     .scroller {

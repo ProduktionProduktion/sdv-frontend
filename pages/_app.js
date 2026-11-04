@@ -3,12 +3,9 @@ import { FaustProvider } from '@faustwp/core';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import { font } from '@/helpers/fonts';
 import { RouteProgress } from '@/components/RouteProgress';
-import blocks from '../wp-blocks';
-import '../faust.config.js';
-
-/**
- * TODO: Export these (↓) into WP
- */
+import blocks from '@/wp-blocks';
+import '@/faust.config.js';
+import '@/styles/variables.css';
 import '@/styles/globals.css';
 import '@/styles/grid.css';
 import '@/styles/modules.css';

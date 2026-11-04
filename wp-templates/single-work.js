@@ -7,6 +7,8 @@ import { Header } from '@/components/Header';
 import { Figure } from '@/components/Figure';
 import { Sidebar } from '@/components/Sidebar';
 import { Loading } from '@/components/Loading';
+import { Seo } from '@/components/Seo';
+import { measureHeight } from '@/helpers';
 
 export default function Component({ loading, data }) {
     const { pending } = useLinkStatus();
@@ -15,37 +17,26 @@ export default function Component({ loading, data }) {
         return <Loading text="THINKING" />;
     }
 
+    const { headerMenuItems, workPost, footerSidebar, generalSettings } = data;
     const {
-        headerMenuItems,
-        workPost: {
-            title,
-            workPostFields: { images, description },
-        },
-        footerSidebar,
-        generalSettings,
-    } = data;
+        title,
+        workPostFields: { images, description },
+    } = workPost;
     const { title: siteTitle, description: siteDescription } = generalSettings;
     const imageNodes = images?.nodes || [];
 
     return (
         <>
-            <Header
-                menuItems={headerMenuItems?.nodes}
-                parentTitle="Arbete"
-                viewTitle={title}
-                siteTitle={siteTitle}
-                siteDescription={siteDescription}
-            />
+            <Seo node={workPost} settings={data} viewTitle={title} parentTitle="Arbete" type="article" />
+            <Header menuItems={headerMenuItems?.nodes} siteTitle={siteTitle} siteDescription={siteDescription} />
             <main className={`document-content ${styles.work}`}>
                 <article className="grid">
                     <Sidebar extraClassNames={['-col -col-1']}>{'Arbete > ' + title}</Sidebar>
-                    <main className="-col -col-5" style={{ order: 2 }}>
-                        <div className={styles.content}>
-                            <h1>{title}</h1>
-                            <div dangerouslySetInnerHTML={{ __html: description ?? '' }} />
-                        </div>
-                    </main>
-                    <div className={`${styles.images} -col -col-5`} style={{ order: 1 }}>
+                    <div ref={measureHeight} className={`${styles.content} -col -col-5`} style={{ order: 2 }}>
+                        <h1>{title}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: description ?? '' }} />
+                    </div>
+                    <div ref={measureHeight} className={`${styles.images} -col -col-5`} style={{ order: 1 }}>
                         {imageNodes?.map(({ id, sourceUrl, altText, mediaDetails: { width, height } }, index) => (
                             <Figure
                                 key={id}
@@ -69,6 +60,8 @@ export default function Component({ loading, data }) {
 Component.query = gql`
     ${Header.fragments.entry}
     ${Footer.fragments.entry}
+    ${Seo.fragments.settings}
+    ${Seo.fragments.node}
     query GetWork($databaseId: ID!, $asPreview: Boolean = false) {
         workPost(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
             id
@@ -81,9 +74,11 @@ Component.query = gql`
                     }
                 }
             }
+            ...SeoNodeFragment
         }
         ...HeaderFragment
         ...FooterFragment
+        ...SeoSettingsFragment
     }
 `;
 

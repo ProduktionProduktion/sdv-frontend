@@ -17,12 +17,34 @@ export const getViewTitle = (title, siteTitle, parentTitle = null) => {
     return decodeHTMLEntities(siteTitle) || 'SDV';
 };
 
+const NAMED_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0' };
+
 export function decodeHTMLEntities(text) {
+    if (typeof document === 'undefined') {
+        return (text ?? '').replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (match, entity) => {
+            if (entity[0] === '#') {
+                const isHex = entity[1].toLowerCase() === 'x';
+                return String.fromCodePoint(parseInt(entity.slice(isHex ? 2 : 1), isHex ? 16 : 10));
+            }
+
+            return NAMED_ENTITIES[entity.toLowerCase()] ?? match;
+        });
+    }
+
     var textArea = document.createElement('textarea');
     textArea.innerHTML = text;
 
     return textArea.value;
 }
+
+export const measureHeight = (element) => {
+    const observer = new ResizeObserver(() =>
+        element.style.setProperty('--element-height', `${element.offsetHeight}px`),
+    );
+    observer.observe(element);
+
+    return () => observer.disconnect();
+};
 
 export const flattenArray = (array) =>
     array.reduce((a, b) => {

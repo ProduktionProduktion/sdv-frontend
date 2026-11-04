@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
-import Head from 'next/head';
 import { BlockEditorFragment } from '../fragments/BlockEditor';
 import { BlocksComponentMap } from '@/components/BlocksComponentMap';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Loading } from '@/components/Loading';
+import { Seo } from '@/components/Seo';
 
 export default function Component({ loading, data }) {
     if (loading) {
@@ -16,6 +16,7 @@ export default function Component({ loading, data }) {
 
     return (
         <>
+            <Seo node={nodeByUri} settings={data} />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} menuItems={headerMenuItems?.nodes} />
             <BlocksComponentMap data={nodeByUri} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
@@ -27,15 +28,19 @@ Component.query = gql`
     ${BlockEditorFragment}
     ${Header.fragments.entry}
     ${Footer.fragments.entry}
+    ${Seo.fragments.settings}
+    ${Seo.fragments.node}
     query GetFrontPage {
         nodeByUri(uri: "/") {
             ... on Page {
                 title
                 ...BlockEditorFragment
+                ...SeoNodeFragment
             }
         }
         ...HeaderFragment
         ...FooterFragment
+        ...SeoSettingsFragment
     }
 `;
 

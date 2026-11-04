@@ -1,16 +1,22 @@
 main.work {
     padding-bottom: var(--spacer-xl);
 
+    .content,
+    .images {
+        @media (min-width: 1024px) {
+            align-self: start;
+            position: sticky;
+            top: min(var(--sticky-offset), calc(100dvh - var(--element-height, 0px)));
+            /* top: min(var(--sticky-offset), calc(100dvh - var(--element-height, 0px) - var(--spacer-xl))); */
+        }
+    }
+
     .content {
         padding-top: var(--sidebar-padding);
-
-        @media (min-width: 1024px) {
-            position: sticky;
-            top: var(--sticky-offset);
-        }
+        padding-bottom: var(--spacer-xl);
 
         > h1 {
-            margin-top: 0.1em;
+            margin-top: -0.1em;
             /* line-height: 1cap; */
         }
     }
@@ -23,6 +29,7 @@ main.work {
         flex-direction: column;
         align-items: center;
         gap: var(--spacer-xl);
+        padding-bottom: var(--spacer-lg);
 
         figure img {
             border-radius: var(--border-radius);

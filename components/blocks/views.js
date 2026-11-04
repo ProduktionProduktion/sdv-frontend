@@ -1,7 +1,7 @@
 export { HeadingView as Heading } from './Heading/HeadingView';
 export { EditorView as Editor } from './Editor/EditorView';
 export { GalleryView as Gallery } from './Gallery/GalleryView';
-export { HeroView as Hero } from './Hero/HeroView';
+// export { HeroView as Hero } from './.trash/Hero/HeroView';
 export { ButtonsView as Buttons } from './Buttons/ButtonsView';
 export { ImageView as Image } from './Image/ImageView';
 export { SectionView as Section } from './Section/SectionView';

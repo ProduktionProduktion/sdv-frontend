@@ -1,7 +1,7 @@
 export { Heading } from './Heading';
 export { Editor } from './Editor';
 export { Gallery } from './Gallery';
-export { Hero } from './Hero';
+// export { Hero } from './.trash/Hero';
 export { Buttons } from './Buttons';
 export { Image } from './Image';
 export { Section } from './Section';

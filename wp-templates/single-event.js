@@ -3,6 +3,7 @@ import { useLinkStatus } from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Loading } from '@/components/Loading';
+import { Seo } from '@/components/Seo';
 import { BlockEditorFragment } from '@/fragments/BlockEditor';
 import { BlocksComponentMap } from '@/components/BlocksComponentMap';
 
@@ -18,12 +19,8 @@ export default function Component({ loading, data }) {
 
     return (
         <>
-            <Header
-                menuItems={headerMenuItems?.nodes}
-                viewTitle={eventPost?.title}
-                siteTitle={siteTitle}
-                siteDescription={siteDescription}
-            />
+            <Seo node={eventPost} settings={data} viewTitle={eventPost?.title} type="article" />
+            <Header menuItems={headerMenuItems?.nodes} siteTitle={siteTitle} siteDescription={siteDescription} />
             <BlocksComponentMap data={eventPost} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
         </>
@@ -34,13 +31,17 @@ Component.query = gql`
     ${BlockEditorFragment}
     ${Header.fragments.entry}
     ${Footer.fragments.entry}
+    ${Seo.fragments.settings}
+    ${Seo.fragments.node}
     query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
         eventPost(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
             title
             ...BlockEditorFragment
+            ...SeoNodeFragment
         }
         ...HeaderFragment
         ...FooterFragment
+        ...SeoSettingsFragment
     }
 `;
 

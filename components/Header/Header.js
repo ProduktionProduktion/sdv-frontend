@@ -4,16 +4,10 @@ import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '@/fragments/GeneralSettings';
 import { Logo } from '@/components/Logo';
 import styles from './Header.module.css';
-import { getViewTitle } from '@/helpers';
-import Head from 'next/head';
-export default function Header({ siteTitle, siteDescription, viewTitle = null, menuItems, parentTitle = null }) {
-    const title = getViewTitle(viewTitle, siteTitle, parentTitle);
 
+export default function Header({ siteTitle, siteDescription, menuItems }) {
     return (
         <>
-            <Head>
-                <title>{title}</title>
-            </Head>
             <header className="document-header">
                 <div className={styles.navbar}>
                     <Link href="/" className={styles.brand}>
