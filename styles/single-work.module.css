@@ -31,9 +31,14 @@ main.work {
         gap: var(--spacer-xl);
         padding-bottom: var(--spacer-lg);
 
-        figure img {
+        figure img,
+        figure:global(.-video) {
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow-lg);
+        }
+
+        figure:global(.-video) img {
+            box-shadow: none;
         }
 
         @media screen and (max-width: 767.98px) {
@@ -49,6 +54,10 @@ main.work {
             figure {
                 flex: 0 0 auto;
                 scroll-snap-align: start;
+
+                &:global(.-video) {
+                    width: min(var(--max-width-sm), calc(var(--max-height-sm) * var(--media-ratio)));
+                }
 
                 img {
                     display: block;

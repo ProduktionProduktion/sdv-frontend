@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { VideoView } from './VideoView';
-import { ImgNodeFragment } from '@/fragments/Media';
+import { MediaFragment } from '@/fragments/Media';
 import NextImage from 'next/image';
 
 export const Video = ({ key, ...props }) => <VideoView {...props} key={key} imgComponent={NextImage} />;
@@ -15,29 +15,15 @@ Video.fragments = {
     acfName: ACF_NAME,
     acfSlug: ACF_SLUG,
     entry: gql`
-    ${ImgNodeFragment}
+    ${MediaFragment}
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
       isUrl
       videoUrl
       options
       caption
-      video { #field
-        nodes { #posts
-          ... on VideoPost { #post_type
-            id
-            title
-            videoPostFields {
-              vimeoUrl
-              posterUrl
-              poster {
-                ...ImgNodeFragment
-              }
-              dimensions {
-                width
-                height
-              }
-            }
-          }
+      video {
+        node {
+          ...MediaFragment
         }
       }
     }

@@ -1,7 +1,7 @@
 .liteEmbed {
     --lite-embed-aspect-ratio: 16 / 9;
     --lite-embed-background-color: var(--color-dark);
-    --lite-embed-button-size: 4.5rem;
+    --lite-embed-button-size: 5rem;
     --lite-embed-button-color: var(--color-light);
     --lite-embed-button-background: rgb(from var(--color-dark) r g b / 0.6);
     --lite-embed-button-background-hover: var(--color-theme);
@@ -42,30 +42,38 @@
         background: transparent;
         cursor: pointer;
 
-        &::before {
+        /* &::before {
             content: '';
             width: var(--lite-embed-button-size);
             aspect-ratio: 1;
             border-radius: var(--border-radius-pill);
             background-color: var(--lite-embed-button-background);
             backdrop-filter: blur(4px);
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease;
+        } */
 
         &::after {
             content: '';
             position: absolute;
-            width: calc(var(--lite-embed-button-size) * 0.32);
-            aspect-ratio: 0.866;
+            width: 0;
+            height: 0;
             margin-left: calc(var(--lite-embed-button-size) * 0.06);
-            background-color: var(--lite-embed-button-color);
-            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            border-style: solid;
+            border-width: calc(var(--lite-embed-button-size) * 0.185) 0 calc(var(--lite-embed-button-size) * 0.185)
+                calc(var(--lite-embed-button-size) * 0.32);
+            border-color: transparent transparent transparent var(--lite-embed-button-color);
+            transition: transform 0.2s ease;
+            filter: drop-shadow(var(--box-shadow-lg));
         }
 
-        &:hover::before,
-        &:focus-visible::before {
-            background-color: var(--lite-embed-button-background-hover);
-            transform: scale(1.08);
+        &:hover,
+        &:focus-visible {
+            &::after {
+                /* background-color: var(--lite-embed-button-background-hover); */
+                transform: scale(1.1);
+            }
         }
 
         &:focus-visible {

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { GalleryView } from './GalleryView';
-import { ImgFragment } from '@/fragments/Media';
+import { MediaFragment } from '@/fragments/Media';
 import NextImage from 'next/image';
 
 export const Gallery = ({ key, ...props }) => <GalleryView {...props} imgComponent={NextImage} key={key} />;
@@ -15,11 +15,11 @@ Gallery.fragments = {
     acfName: ACF_NAME,
     acfSlug: ACF_SLUG,
     entry: gql`
-    ${ImgFragment}
+    ${MediaFragment}
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
       images {
         nodes {
-          ...ImgFragment
+          ...MediaFragment
         }
       }
     }

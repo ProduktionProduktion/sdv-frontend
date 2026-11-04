@@ -1,0 +1,9 @@
+.video {
+    --media-ratio: 16 / 9;
+
+    width: 100%;
+
+    .embed {
+        border-radius: inherit;
+    }
+}

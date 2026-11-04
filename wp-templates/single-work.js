@@ -4,7 +4,8 @@ import NextImage from 'next/image';
 import styles from '@/styles/single-work.module.css';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { Figure } from '@/components/Figure';
+import { MediaFigure } from '@/components/MediaFigure';
+import { MediaFragment } from '@/fragments/Media';
 import { Sidebar } from '@/components/Sidebar';
 import { Loading } from '@/components/Loading';
 import { Seo } from '@/components/Seo';
@@ -37,13 +38,10 @@ export default function Component({ loading, data }) {
                         <div dangerouslySetInnerHTML={{ __html: description ?? '' }} />
                     </div>
                     <div ref={measureHeight} className={`${styles.images} -col -col-5`} style={{ order: 1 }}>
-                        {imageNodes?.map(({ id, sourceUrl, altText, mediaDetails: { width, height } }, index) => (
-                            <Figure
-                                key={id}
-                                src={sourceUrl}
-                                altText={altText}
-                                width={width}
-                                height={height}
+                        {imageNodes?.map((node, index) => (
+                            <MediaFigure
+                                key={node.id}
+                                media={node}
                                 sizes="(max-width: 768px) 100vw, 40vw"
                                 ImageComponent={NextImage}
                                 loading={[0, 1].includes(index) ? 'eager' : 'lazy'}
@@ -62,6 +60,7 @@ Component.query = gql`
     ${Footer.fragments.entry}
     ${Seo.fragments.settings}
     ${Seo.fragments.node}
+    ${MediaFragment}
     query GetWork($databaseId: ID!, $asPreview: Boolean = false) {
         workPost(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
             id
@@ -70,7 +69,7 @@ Component.query = gql`
                 description
                 images(first: 20) {
                     nodes {
-                        ...ImgFragment
+                        ...MediaFragment
                     }
                 }
             }

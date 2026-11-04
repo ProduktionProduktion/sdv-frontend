@@ -57,10 +57,10 @@
 
     /* Shadow */
     --box-shadow-color: var(--foreground);
-    --box-shadow-lg: 0 0.3333rem 1.25rem 0 oklch(from var(--box-shadow-color) l c h / 0.25);
+    --box-shadow-lg: 0 0.3333rem 1.25rem oklch(from var(--box-shadow-color) l c h / 0.25);
     /* --box-shadow-lg: 0 0.3333rem 1.25rem 0 rgba(var(--box-shadow-color), 0.25); */
-    --box-shadow-xl: 0 0.5rem 2rem 0 oklch(from var(--box-shadow-color) l c h / 0.25);
-    --box-shadow-lg-light: 0.25rem -0.3333rem 1.25rem 0 oklch(from #fff l c h / 0.25);
+    --box-shadow-xl: 0 0.5rem 2rem oklch(from var(--box-shadow-color) l c h / 0.25);
+    --box-shadow-lg-light: 0.25rem -0.3333rem 1.25rem oklch(from #fff l c h / 0.25);
 
     /* Layout */
     --spacer-xs: 0.25rem;

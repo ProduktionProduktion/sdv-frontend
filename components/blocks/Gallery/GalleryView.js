@@ -1,6 +1,6 @@
 import styles from './Gallery.module.css';
 import { getLayoutProps } from '@/helpers';
-import { Figure } from '@/components/Figure';
+import { MediaFigure } from '@/components/MediaFigure';
 
 export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockSlug, isChild, layoutOptions }) {
     const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
@@ -13,15 +13,12 @@ export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockS
 
     return (
         <div {...layoutProps.attributes} className={classNames.join(' ')}>
-            {imageNodes.map(({ id, altText, sourceUrl, caption, mediaDetails }) => (
-                <Figure
-                    key={id}
-                    altText={altText}
-                    src={sourceUrl}
-                    width={mediaDetails?.width}
-                    height={mediaDetails?.height}
+            {imageNodes.map((node) => (
+                <MediaFigure
+                    key={node.id}
+                    media={node}
                     sizes="300px"
-                    caption={caption}
+                    caption={node.caption}
                     ImageComponent={ImgComponent}
                     className={styles.item}
                 />

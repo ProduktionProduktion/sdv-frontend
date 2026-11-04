@@ -16,3 +16,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - SEO: `components/Seo` renders head tags from `Seo.fragments.settings` (RootQuery) and `Seo.fragments.node` (ContentNode). Needs `NEXT_PUBLIC_SITE_URL`.
 - Local GraphQL endpoint for curl: `https://sdv-backend.local/index.php?graphql` (`/graphql` gets redirected by Faust).
 - Lint: `npx eslint <paths>`.
+- Video: an image attachment with `videoFields.videoUrl` is a video poster (backend `Modules/Video/VideoAttachment.php`). Query images with `MediaFragment` and render with `MediaFigure`, which falls back to `Figure`.
+- WP-CLI (Local): `DB_HOST="localhost:$HOME/Library/Application Support/Local/run/Ae2NgXn-r/mysql/mysqld.sock" wp …` from `sdv-backend/app/public`.
