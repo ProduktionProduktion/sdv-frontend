@@ -27,7 +27,7 @@
     position: fixed;
     z-index: 100;
     right: var(--grid-padding-x);
-    bottom: var(--spacer-lg);
+    bottom: calc(var(--grid-padding-x) - 0.5rem);
     display: inline-flex;
     align-items: center;
     width: 9rem;

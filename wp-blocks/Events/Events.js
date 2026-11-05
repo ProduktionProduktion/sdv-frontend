@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { EventsView } from './EventsView';
-import { LinkFragment } from '../../../fragments/Link';
+import { LinkFragment } from '../../fragments/Link';
 
 export const Events = ({ key, ...props }) => <EventsView key={key} {...props} />;
 

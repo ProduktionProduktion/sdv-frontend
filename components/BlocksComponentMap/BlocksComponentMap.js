@@ -1,5 +1,5 @@
 import { flatListToHierarchical } from '@faustwp/core';
-import * as Blocks from '../blocks';
+import * as Blocks from '@/wp-blocks';
 
 export const BlocksComponentMap = ({ data: { editorBlocks } }) => {
     const hierarchicalBlocks = flatListToHierarchical(editorBlocks, {

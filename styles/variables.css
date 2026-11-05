@@ -20,7 +20,7 @@
     --line-height: 1.38;
     /* --font-size-lg: 1.25rem;
     --font-size-xl: 1.5rem; */
-    --font-size-h1: 3.6rem;
+    --font-size-h1: clamp(2rem, 14vw, 3.6rem); /* 3.6rem; */
     --line-height-h1: 0.9;
     --font-size-h2: 1.85rem;
     --line-height-h2: 1.1;

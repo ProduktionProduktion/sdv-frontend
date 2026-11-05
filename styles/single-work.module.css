@@ -22,8 +22,8 @@ main.work {
     }
 
     .images {
-        --max-height-sm: 40dvh;
-        --max-width-sm: calc(100vw - var(--grid-padding-x) * 2);
+        --max-height-sm: 40lvh;
+        --max-width-sm: calc(110vw - var(--grid-padding-x) * 2);
 
         display: flex;
         flex-direction: column;

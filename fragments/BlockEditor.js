@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
-import * as BLOCKS from '../components/blocks';
+import * as BLOCKS from '../wp-blocks';
 import { LayoutSettingsFragment } from './LayoutSettings';
 
-const blocks = Object.values(BLOCKS);
+const blocks = Object.values(BLOCKS).filter((block) => block?.fragments);
 
 const allFragments = blocks
   .map(({ fragments }) => fragments.entry)
