@@ -100,6 +100,10 @@ h6,
     font-size: var(--font-size-mono);
     font-weight: var(--font-weight-mono);
 
+    &:is(h1, .-h1, h2, .-h2, h3, .-h3, h4, .-h4, h5, .-h5, h6, .-h6) {
+        font-weight: 500;
+    }
+
     &:is(p + .font-mono) {
         margin-top: var(--spacer);
     }
@@ -113,13 +117,17 @@ h6,
 ol,
 ul,
 p {
-    &:is(p + p) {
+    &:not(.font-mono):is(p + p):not(p:empty + p) {
         text-indent: 1em;
     }
 
     &:has(+ :not(p)) {
         margin-bottom: var(--spacer);
     }
+}
+
+p:not(.font-mono):empty {
+    height: 1cap; /* or margin-bottom: var(--spacer); */
 }
 
 img {

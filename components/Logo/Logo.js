@@ -29,6 +29,7 @@ export const Logo = ({ title = null, description = null, className = '', symbol 
             height={70}
             fill="none"
             className={classNames}
+            alt="Salorant & de Vylders symbol"
             {...props}>
             <path
                 className={styles.colored}

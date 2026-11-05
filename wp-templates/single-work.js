@@ -45,6 +45,7 @@ export default function Component({ loading, data }) {
                                 sizes="(max-width: 768px) 100vw, 40vw"
                                 ImageComponent={NextImage}
                                 loading={[0, 1].includes(index) ? 'eager' : 'lazy'}
+                                {...(index === 0 && { fetchPriority: 'high' })}
                             />
                         ))}
                     </div>

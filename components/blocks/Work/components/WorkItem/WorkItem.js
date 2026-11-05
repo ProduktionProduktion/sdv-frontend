@@ -33,6 +33,7 @@ export function WorkItem({
                             caption={caption}
                             ImageComponent={imgComponent}
                             loading={[0, 1, 2, 3].includes(index) ? 'eager' : 'lazy'}
+                            {...(index === 1 && { fetchPriority: 'high' })}
                         />
                     )}
                     <div className={classNames._infoWrap}>
