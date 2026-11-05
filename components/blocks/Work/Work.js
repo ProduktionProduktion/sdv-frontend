@@ -50,7 +50,7 @@ Work.fragments = {
     fragment ${FRAGMENT_KEY} on ${COMPONENT_NAME} {
       displayAll
       displayStyle
-      work { #field
+      work(first: 100) { #field
         nodes { #posts
           ... on WorkPost { #post_type
             id #post (work) > id
