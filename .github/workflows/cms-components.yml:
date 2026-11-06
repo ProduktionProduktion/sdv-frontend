@@ -1,0 +1,23 @@
+name: CMS components
+on:
+  push:
+    branches: [main, production]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: npm }   # add an .nvmrc, none exists yet
+      - run: npm ci
+      - run: npm run build:cms
+        env:
+          CMS_COMPONENTS_OUTPUT_PATH: ${{ runner.temp }}/cms
+      - run: tar -czf cms-components.tgz -C "$RUNNER_TEMP/cms" .
+      - run: |
+          TAG="cms-${GITHUB_SHA::7}"
+          gh release create "$TAG" cms-components.tgz --target "$GITHUB_SHA" \
+            --title "$TAG" --notes "From $GITHUB_REF_NAME" \
+            $([ "$GITHUB_REF_NAME" = main ] && echo --prerelease)
+        env: { GH_TOKEN: "${{ github.token }}" }

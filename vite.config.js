@@ -24,7 +24,7 @@ const graphqlExport = (out) => ({
             plugins: [emptyCss, jsx()],
         });
         const files = module.exportBlockQueries(out);
-        console.log(`\n    Exported ${files.length} block queries into:\n    ${out}\n`);
+        // console.log(`\n    Exported ${files.length} block queries into:\n    ${out}\n`);
     },
 });
 
@@ -36,14 +36,14 @@ export default defineConfig(({ mode }) => {
     const outDir = `${env.CMS_COMPONENTS_OUTPUT_PATH}/dist`;
     const themePath = `${env.CMS_COMPONENTS_THEME_PATH}`;
 
-    console.log(`
-    Bundled into: 
-    ${outDir}
+    //     console.log(`
+    //     Bundled into:
+    //     ${outDir}
 
-    …now go to 
-    ${themePath} and run: 
-    yarn build
-  `);
+    //     …now go to
+    //     ${themePath} and run:
+    //     yarn build
+    //   `);
 
     return {
         publicDir: false,
