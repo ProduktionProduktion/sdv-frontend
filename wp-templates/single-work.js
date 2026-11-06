@@ -51,7 +51,7 @@ export default function Component({ loading, data }) {
                     </div>
                 </article>
             </main>
-            <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
+            <Footer id={footerSidebar?.id} name={footerSidebar?.name} editorBlocks={footerSidebar?.editorBlocks} />
         </>
     );
 }

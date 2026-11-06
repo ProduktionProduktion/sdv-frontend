@@ -23,7 +23,7 @@ export default function Component({ loading, data }) {
             <Seo node={page} settings={data} viewTitle={page?.title} />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} menuItems={headerMenuItems?.nodes} />
             <BlocksComponentMap data={page} />
-            <Footer id={footerSidebar?.id} name={footerSidebar?.name} widgets={footerSidebar?.widgets} />
+            <Footer id={footerSidebar?.id} name={footerSidebar?.name} editorBlocks={footerSidebar?.editorBlocks} />
         </>
     );
 }
