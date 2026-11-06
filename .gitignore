@@ -21,7 +21,8 @@
 /build
 
 # cms
-/cms
+/cms/dist
+/cms/*.txt
 
 # misc
 .DS_Store
