@@ -5,6 +5,8 @@ export { Gallery } from './Gallery';
 export { Buttons } from './Buttons';
 export { Image } from './Image';
 export { Section } from './Section';
+export { Group } from './Group';
+export { Text } from './Text';
 export { Work } from './Work';
 export { Events } from './Events';
 export { Video } from './Video';

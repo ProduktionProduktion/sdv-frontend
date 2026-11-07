@@ -11,6 +11,7 @@ export function WorkItem({
     linkComponent: Link = 'a',
     imgComponent = 'img',
     sizes,
+    style,
     onClick = () => null,
 }) {
     const { shortDescription, metaDescription /*firstDate: firstDateRaw, location*/ } = workPostFields ?? {};
@@ -20,7 +21,12 @@ export function WorkItem({
 
     return (
         <>
-            <article onClick={() => onClick(uri)} key={id} data-index={index + 1} className={`${classNames.item}`}>
+            <article
+                onClick={() => onClick(uri)}
+                key={id}
+                data-index={index + 1}
+                className={`${classNames.item}`}
+                style={style}>
                 <Link href={uri} className={classNames._inner}>
                     {sourceUrl && (
                         <Figure
@@ -48,7 +54,6 @@ export function WorkItem({
                                     dangerouslySetInnerHTML={{ __html: metaDescription }}
                                 />
                             )}
-                            {/* <Link className="visually-hidden" href={uri}>{`Go to "${title}"`}</Link> */}
                         </div>
                     </div>
                 </Link>

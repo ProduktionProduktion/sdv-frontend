@@ -108,7 +108,7 @@ h6,
         font-weight: 500;
     }
 
-    &:is(p + .font-mono) {
+    &:is(p:not(.font-mono) + p.font-mono) {
         margin-top: var(--spacer);
     }
 

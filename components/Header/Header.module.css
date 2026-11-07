@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: var(--spacer) var(--grid-padding-x);
     gap: var(--spacer-xs);
     overflow: visible;
@@ -12,6 +12,7 @@
 
     @media screen and (min-width: 768px) {
         gap: var(--spacer);
+        justify-content: space-between;
     }
 }
 

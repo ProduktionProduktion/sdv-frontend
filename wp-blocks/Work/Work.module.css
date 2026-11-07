@@ -2,7 +2,13 @@
     from {
         transform: translate(
             var(--pile-start-x, 0px),
-            calc(var(--pile-start-y, 0px) - var(--pile-animation-offset) + var(--pile-margin-top))
+            /* --pile-start-top: shared start line (relative to the pile's content top)
+               --item-top:       cancels out where the item sits in the layout
+               --pile-start-y:   optional per-item jitter */
+                calc(
+                    var(--pile-start-top, 0px) - var(--item-top, 0px) + var(--pile-start-y, 0px) -
+                        var(--pile-animation-offset) + var(--pile-margin-top)
+                )
         );
     }
     to {
@@ -46,65 +52,75 @@
                 cursor: pointer;
                 z-index: var(--z, auto);
 
+                /* Item's top within the pile, derived from the preceding items' aspect ratios
+                   (set inline by WorkView). Mobile: one long stack across both columns. */
+                --item-top: calc(var(--before-all, 0) * 100cqi + var(--count-all, 0) * var(--grid-gutter));
+
+                /* Must match the breakpoint where .column goes side by side */
+                @media screen and (min-width: 1024px) {
+                    --col-w: calc((100cqi - var(--grid-gutter)) / 2);
+                    --item-top: calc(var(--before-col, 0) * var(--col-w) + var(--count-col, 0) * var(--grid-gutter));
+                }
+
                 @supports (animation-timeline: scroll()) {
                     /* @media (prefers-reduced-motion: no-preference) { */
-                    animation: workPile ease both;
+                    animation: workPile cubic-bezier(0.25, 0, 0.75, 1) both;
                     animation-timeline: scroll(root);
                     /* från att griden kommer in underifrån tills dess topp når viewportens topp */
                     animation-range: 0
                         calc(var(--work-top, 50vh) + var(--pile-animation-offset) + var(--pile-margin-top));
 
                     &[data-index='1'] {
-                        --pile-start-x: 0;
-                        --pile-start-y: 2cqi;
+                        --pile-start-x: 0; /* 15cqi; */
+                        --pile-start-y: 0cqi;
                         --z: 1;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: 4cqi;
+                            --pile-start-y: 8cqi;
                             --z: 2;
                         }
                     }
 
                     &[data-index='2'] {
-                        --pile-start-x: -25cqi;
-                        --pile-start-y: -34cqi;
+                        --pile-start-x: -28cqi;
+                        --pile-start-y: 55cqi;
                         --z: 2;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: -12cqi;
+                            --pile-start-y: 28cqi;
                             --z: 5;
                         }
                     }
 
                     &[data-index='3'] {
                         --pile-start-x: 13cqi;
-                        --pile-start-y: -87cqi;
+                        --pile-start-y: 100cqi;
                         --z: 3;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: -52cqi;
+                            --pile-start-y: 40cqi;
                             --z: 4;
                         }
                     }
 
                     &[data-index='4'] {
                         --pile-start-x: -15cqi;
-                        --pile-start-y: -107cqi;
+                        --pile-start-y: 150cqi;
                         --z: 4;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: -4cqi;
+                            --pile-start-y: -3cqi;
                             --z: 3;
                         }
                     }
 
                     &[data-index='5'] {
-                        --pile-start-x: 21cqi;
-                        /* --pile-start-y: -33cqi; */
-                        --z: 1;
+                        --pile-start-x: 31cqi;
+                        --pile-start-y: 250cqi; /*164cqi;*/
+                        --z: 5;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: -40cqi;
+                            --pile-start-y: 17cqi;
 
                             ._inner {
                                 ._infoWrap {
@@ -115,12 +131,13 @@
                     }
 
                     &[data-index='6'] {
-                        --pile-start-x: -7cqi;
-                        /* --pile-start-y: -62cqi; */
+                        --pile-start-x: -46cqi;
+                        --pile-start-y: 250cqi; /*184cqi;*/
                         --z: 6;
 
                         @media screen and (min-width: 1024px) {
-                            --pile-start-y: -62cqi;
+                            --pile-start-x: -3.5cqi;
+                            --pile-start-y: 34cqi;
                         }
                     }
                     /* } */
@@ -144,6 +161,11 @@
 
                     figure {
                         width: 100%;
+
+                        /* would add height beyond ratio × width and break --item-top */
+                        figcaption {
+                            display: none;
+                        }
 
                         img {
                             width: 100%;

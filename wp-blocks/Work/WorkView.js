@@ -38,7 +38,23 @@ function splitColumns(nodes) {
         }
     });
 
-    return [items.slice(0, split), items.slice(split)];
+    // Running sums of the preceding items' ratios/counts, so CSS can derive each item's
+    // top within the pile (height = ratio × width, since every item fills its column).
+    // "all" = single-column stack (mobile), "col" = within its own column (desktop).
+    let allRatio = 0;
+    let allCount = 0;
+
+    return [items.slice(0, split), items.slice(split)].map((column) => {
+        let colRatio = 0;
+
+        return column.map((item, colCount) => {
+            const out = { ...item, offsets: { allRatio, allCount, colRatio, colCount } };
+            allRatio += item.ratio;
+            allCount += 1;
+            colRatio += item.ratio;
+            return out;
+        });
+    });
 }
 
 export function WorkView({
@@ -67,10 +83,18 @@ export function WorkView({
         classNames.push(styles[displayStyle]);
     }
 
-    const renderItem = (work, index) => (
+    const renderItem = (work, index, offsets) => (
         <WorkItem
             key={work.id}
             index={index}
+            style={
+                offsets && {
+                    '--before-all': offsets.allRatio,
+                    '--count-all': offsets.allCount,
+                    '--before-col': offsets.colRatio,
+                    '--count-col': offsets.colCount,
+                }
+            }
             classNames={styles}
             linkComponent={linkComponent}
             imgComponent={imgComponent}
@@ -90,7 +114,7 @@ export function WorkView({
                     ? workNodes.map(renderItem)
                     : splitColumns(workNodes).map((column, columnIndex) => (
                           <div key={columnIndex} className={styles.column}>
-                              {column.map(({ work, index }) => renderItem(work, index))}
+                              {column.map(({ work, index, offsets }) => renderItem(work, index, offsets))}
                           </div>
                       ))}
             </div>

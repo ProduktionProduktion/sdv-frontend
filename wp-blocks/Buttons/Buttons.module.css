@@ -60,4 +60,10 @@
 
         font-size: 1.25rem;
     }
+
+    &:hover,
+    &:focus-visible {
+        outline: solid var(--border-width-light) oklch(from var(--btn-color) l c h / 0.5);
+        outline-offset: 0.15rem;
+    }
 }

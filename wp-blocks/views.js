@@ -5,6 +5,8 @@ export { GalleryView as Gallery } from './Gallery/GalleryView';
 export { ButtonsView as Buttons } from './Buttons/ButtonsView';
 export { ImageView as Image } from './Image/ImageView';
 export { SectionView as Section } from './Section/SectionView';
+export { GroupView as Group } from './Group/GroupView';
+export { TextView as Text } from './Text/TextView';
 export { WorkView as Work } from './Work/WorkView';
 export { EventsView as Events } from './Events/EventsView';
 export { VideoView as Video } from './Video/VideoView';

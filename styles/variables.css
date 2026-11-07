@@ -97,7 +97,7 @@
     @media (min-width: 768px) {
         --grid-gutter: var(--spacer-xl);
         --grid-padding-x: var(--spacer-xl);
-        --pile-animation-offset: 10rem;
+        --pile-animation-offset: 25rem;
         --pile-margin-top: 0rem;
     }
 }
