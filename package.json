@@ -8,6 +8,8 @@
         "build": "next build",
         "generate": "faust generatePossibleTypes",
         "build:cms": "vite build --emptyOutDir",
+        "deploy": "git push && npm run deploy:watch",
+        "deploy:watch": "sleep 5 && gh run watch -R ProduktionProduktion/sdv-frontend",
         "start": "next start",
         "lint": "eslint"
     },

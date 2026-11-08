@@ -34,7 +34,15 @@ export const getMediaVideo = (media, ImageComponent = 'img') => {
 /**
  * Renders an image, or a video when the image is a video poster
  */
-export function MediaFigure({ media, className, sizes, caption = null, ImageComponent = 'img', loading = 'lazy' }) {
+export function MediaFigure({
+    media,
+    className,
+    sizes,
+    caption = null,
+    ImageComponent = 'img',
+    loading = 'lazy',
+    fetchPriority = null,
+}) {
     const video = getMediaVideo(media, ImageComponent);
 
     if (!video) {
@@ -48,6 +56,7 @@ export function MediaFigure({ media, className, sizes, caption = null, ImageComp
                 caption={caption}
                 ImageComponent={ImageComponent}
                 loading={loading}
+                fetchPriority={fetchPriority}
                 className={className}
             />
         ) : null;

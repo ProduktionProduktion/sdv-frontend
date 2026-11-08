@@ -9,6 +9,7 @@ export const Figure = ({
     caption = null,
     ImageComponent = 'img',
     loading = 'lazy',
+    fetchPriority = null,
     ...props
 }) => {
     const classNames = [className, width < height ? '-portrait' : '-landscape'].filter(Boolean).join(' ');
@@ -22,6 +23,7 @@ export const Figure = ({
                 height={height}
                 sizes={sizes}
                 loading={loading}
+                {...(fetchPriority && { fetchPriority })}
             />
             {caption && caption !== '' && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
         </figure>
