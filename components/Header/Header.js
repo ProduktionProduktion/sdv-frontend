@@ -11,12 +11,12 @@ export default function Header({ siteTitle, siteDescription, menuItems }) {
             <header className="document-header">
                 <div className={styles.navbar}>
                     <Link href="/" className={styles.brand}>
-                        <Logo title={siteTitle} description={siteDescription} />
+                        <Logo title={siteTitle || 'Salorant &amp; de Vylders'} description={siteDescription} />
                     </Link>
                     {siteDescription && <p className="description">{siteDescription}</p>}
                     <NavigationMenu className={['primary-navigation'].join(' ')} menuItems={menuItems} />
                 </div>
-                <Logo className={styles.symbol} title={siteTitle} description={siteDescription} symbol />
+                <Logo className={styles.symbol} symbol />
             </header>
         </>
     );
