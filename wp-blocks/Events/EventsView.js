@@ -3,8 +3,8 @@ import { getLayoutProps } from '@/helpers';
 import { EventItem } from './components/EventItem';
 import { Header } from './components/Header';
 
-export function EventsView({ events, displayUpcoming, customHeading, blockSlug, isChild, layoutOptions }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function EventsView({ events, displayUpcoming, customHeading, blockSlug, getImageProps = null, isChild, layoutOptions }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const classNames = [styles.events, ...layoutProps.classNames];
     const eventNodes = events?.nodes ?? [];
 

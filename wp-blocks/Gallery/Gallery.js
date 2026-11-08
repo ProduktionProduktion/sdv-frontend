@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 import { GalleryView } from './GalleryView';
 import { MediaFragment } from '@/fragments/Media';
-import NextImage from 'next/image';
+import NextImage, { getImageProps } from 'next/image';
 
-export const Gallery = ({ key, ...props }) => <GalleryView {...props} imgComponent={NextImage} key={key} />;
+export const Gallery = ({ key, ...props }) => <GalleryView {...props} imgComponent={NextImage} key={key} getImageProps={getImageProps} />;
 
 const COMPONENT_NAME = 'Gallery';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;

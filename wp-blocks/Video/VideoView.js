@@ -12,6 +12,7 @@ export function VideoView({
     layoutOptions,
     isChild,
     blockSlug,
+    getImageProps = null,
     imgComponent = 'img',
 }) {
     const embed = isUrl ? parseVideoUrl(videoUrl) : getMediaVideo(video?.node, imgComponent);
@@ -20,7 +21,7 @@ export function VideoView({
         return null;
     }
 
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const classNames = [...layoutProps.classNames, styles.video];
 
     return (

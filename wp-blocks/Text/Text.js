@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { TextView } from './TextView';
+import { getImageProps } from 'next/image';
 
 export const Text = ({ key, ...props }) => {
-    return <TextView key={key} {...props} />;
+    return <TextView key={key} {...props} getImageProps={getImageProps} />;
 };
 
 const COMPONENT_NAME = 'Text';

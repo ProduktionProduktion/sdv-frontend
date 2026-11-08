@@ -4,8 +4,8 @@ import { Button } from './components/Button';
 
 const JUSTIFY = { left: 'flex-start', center: 'center', right: 'flex-end' };
 
-export function ButtonsView({ buttons, align, LinkComponent = 'a', layoutOptions, isChild, blockSlug }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function ButtonsView({ buttons, align, LinkComponent = 'a', layoutOptions, isChild, blockSlug, getImageProps = null }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
 
     if (align) {
         layoutProps.styles.textAlign = align;

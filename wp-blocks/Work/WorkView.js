@@ -66,6 +66,7 @@ export function WorkView({
     imgComponent,
     onClick,
     blockSlug,
+    getImageProps = null,
     isChild,
     layoutOptions,
 }) {
@@ -75,7 +76,7 @@ export function WorkView({
         return null;
     }
 
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const sidebarContent = displayAll ? 'Arbeten' : 'Utvalda arbeten';
     const classNames = [...layoutProps.classNames, styles.work, 'grid'];
 

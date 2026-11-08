@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { ButtonsView } from './ButtonsView';
+import { getImageProps } from 'next/image';
 import NextLink from 'next/link';
 
-export const Buttons = ({ key, ...props }) => <ButtonsView key={key} LinkComponent={NextLink} {...props} />;
+export const Buttons = ({ key, ...props }) => <ButtonsView key={key} LinkComponent={NextLink} {...props} getImageProps={getImageProps} />;
 
 const COMPONENT_NAME = 'Buttons';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;

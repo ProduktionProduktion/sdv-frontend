@@ -1,8 +1,8 @@
 import { getLayoutProps } from '@/helpers';
 import { addClassToTopLevel } from './helpers';
 
-export function TextView({ content, font, layoutOptions, isChild, blockSlug }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function TextView({ content, font, layoutOptions, isChild, blockSlug, getImageProps = null }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const isMono = font === 'mono';
     const classNames = [...layoutProps.classNames, isMono ? '-font-mono' : null].filter(Boolean);
     // Same output as the [mono] shortcode, so the global .font-mono rules apply per element

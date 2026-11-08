@@ -2,8 +2,8 @@ import styles from './Gallery.module.css';
 import { getLayoutProps } from '@/helpers';
 import { MediaFigure } from '@/components/MediaFigure';
 
-export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockSlug, isChild, layoutOptions }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function GalleryView({ imgComponent: ImgComponent = 'img', images, blockSlug, getImageProps = null, isChild, layoutOptions }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const classNames = [...layoutProps.classNames, styles.gallery];
     const imageNodes = (images?.nodes ?? []).filter((node) => node?.sourceUrl);
 

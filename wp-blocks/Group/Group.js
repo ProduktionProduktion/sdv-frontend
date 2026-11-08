@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { GroupView } from './GroupView';
+import { getImageProps } from 'next/image';
 
 export const Group = ({ key, ...props }) => {
-    return <GroupView key={key} {...props} />;
+    return <GroupView key={key} {...props} getImageProps={getImageProps} />;
 };
 
 const COMPONENT_NAME = 'Group';

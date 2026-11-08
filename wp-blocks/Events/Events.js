@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { EventsView } from './EventsView';
+import { getImageProps } from 'next/image';
 import { LinkFragment } from '../../fragments/Link';
 
-export const Events = ({ key, ...props }) => <EventsView key={key} {...props} />;
+export const Events = ({ key, ...props }) => <EventsView key={key} {...props} getImageProps={getImageProps} />;
 
 const COMPONENT_NAME = 'Events';
 const ACF_NAME = `Acf${COMPONENT_NAME}`;

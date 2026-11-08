@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { WorkView } from './WorkView';
 // import { ImgFragment } from '@/fragments/Media';
 import NextLink from 'next/link';
-import NextImage from 'next/image';
+import NextImage, { getImageProps } from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
@@ -31,6 +31,7 @@ export const Work = ({ key, ...props }) => {
             key={key}
             linkComponent={NextLink}
             imgComponent={NextImage}
+            getImageProps={getImageProps}
             onClick={onLinkClick}
             {...props}
         />

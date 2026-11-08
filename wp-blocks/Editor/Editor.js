@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { EditorView } from './EditorView';
+import { getImageProps } from 'next/image';
 
 export const Editor = ({ key, ...props }) => {
-    return <EditorView key={key} {...props} />;
+    return <EditorView key={key} {...props} getImageProps={getImageProps} />;
 };
 
 const COMPONENT_NAME = 'Editor';

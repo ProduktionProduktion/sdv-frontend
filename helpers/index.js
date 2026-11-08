@@ -57,7 +57,7 @@ export const flattenArray = (array) =>
 
 // const SPACING_STEP = 0.6667;
 
-export const getLayoutProps = (layoutOptions, isChild = false, blockSlug = null) => {
+export const getLayoutProps = (layoutOptions, isChild = false, blockSlug = null, getImageProps = null) => {
     // console.log(`layoutOptions of ${blockSlug}`, layoutOptions);
 
     const {
@@ -102,9 +102,7 @@ export const getLayoutProps = (layoutOptions, isChild = false, blockSlug = null)
     }
 
     if (backgroundImage) {
-        const { sourceUrl } = backgroundImage;
-
-        styles['--m-background-image'] = `url('${sourceUrl}')`;
+        styles['--m-background-image'] = getBackgroundImageValue(backgroundImage, getImageProps);
 
         if (backgroundSize) {
             styles['--m-background-image-size'] = backgroundSize;
@@ -160,4 +158,41 @@ export const getLayoutProps = (layoutOptions, isChild = false, blockSlug = null)
         classNames: classNames.filter(Boolean),
         styles,
     };
+};
+
+/**
+ * With next/image's getImageProps injected (Next.js) → optimized image-set().
+ * Without it (CMS bundle) → plain url().
+ */
+export const getBackgroundImageValue = (image, getImageProps = null) => {
+    const { sourceUrl, mediaDetails } = image || {};
+
+    if (!sourceUrl) {
+        return 'none';
+    }
+
+    if (!getImageProps) {
+        return `url("${sourceUrl}")`;
+    }
+
+    // No `sizes` → srcSet uses 1x/2x descriptors, which is what image-set() accepts.
+    const width = Math.min(mediaDetails?.width || 1920, 1920);
+    const height = mediaDetails?.width ? Math.round((width / mediaDetails.width) * mediaDetails.height) : 1080;
+    const {
+        props: { srcSet, src },
+    } = getImageProps({ alt: '', width, height, src: sourceUrl, quality: 75 });
+
+    return srcSet ? getBackgroundImage(srcSet) : `url("${src}")`;
+};
+
+export const getBackgroundImage = (srcSet = '') => {
+    const imageSet = srcSet
+        .split(', ')
+        .map((str) => {
+            const [url, dpi] = str.split(' ');
+            return `url("${url}") ${dpi}`;
+        })
+        .join(', ');
+
+    return `image-set(${imageSet})`;
 };

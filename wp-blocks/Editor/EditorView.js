@@ -2,8 +2,8 @@ import { getLayoutProps } from '@/helpers';
 import { processNotes } from './helpers';
 import styles from './Editor.module.css';
 
-export function EditorView({ content: rawContent, dontLimitWidth, columns, align, layoutOptions, isChild, blockSlug }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function EditorView({ content: rawContent, dontLimitWidth, columns, align, layoutOptions, isChild, blockSlug, getImageProps = null }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const classNames = [...layoutProps.classNames];
     const innerClassNames = [styles._inner];
     const { hasNotes, content } = processNotes(rawContent);

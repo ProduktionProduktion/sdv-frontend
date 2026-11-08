@@ -1,8 +1,8 @@
 import { getLayoutProps } from '@/helpers';
 // import styles from './Heading.module.css';
 
-export function HeadingView({ align, customSize, heading, tag, layoutOptions, isChild, blockSlug }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+export function HeadingView({ align, customSize, heading, tag, layoutOptions, isChild, blockSlug, getImageProps = null }) {
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
 
     const Tag = tag ? `${tag}` : `${h2}`;
     let classNames = [...layoutProps.classNames];

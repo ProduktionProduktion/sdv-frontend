@@ -13,9 +13,10 @@ export function ImageView({
     layoutOptions,
     isChild,
     blockSlug,
+    getImageProps = null,
     ImgComponent = 'img',
 }) {
-    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug);
+    const layoutProps = getLayoutProps(layoutOptions || {}, isChild, blockSlug, getImageProps);
     const classNames = [...layoutProps.classNames, styles.image];
     const imageNode = image?.node;
 

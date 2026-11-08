@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
+import { getImageProps } from 'next/image';
 import { SectionView } from './SectionView';
 
 export const Section = ({ key, ...props }) => {
-    return <SectionView key={key} {...props} />;
+    return <SectionView key={key} {...props} getImageProps={getImageProps} />;
 };
 
 const COMPONENT_NAME = 'Section';

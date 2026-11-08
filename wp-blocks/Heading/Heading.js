@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 import { HeadingView } from './HeadingView';
+import { getImageProps } from 'next/image';
 
 export const Heading = ({ key, ...props }) => {
-    return <HeadingView key={key} {...props} />;
+    return <HeadingView key={key} {...props} getImageProps={getImageProps} />;
 };
 
 const COMPONENT_NAME = 'Heading';
