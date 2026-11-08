@@ -98,7 +98,11 @@ export function WorkView({
             classNames={styles}
             linkComponent={linkComponent}
             imgComponent={imgComponent}
-            sizes={displayStyle === 'list' ? '(min-width: 768px) 80vmin, 100vw' : '(min-width: 768px) 40vw, 100vw'}
+            sizes={
+                displayStyle === 'list'
+                    ? '(min-width: 768px) 80vmin, 100vw'
+                    : '(min-width: 1024px) 40vw, (min-width: 768px) 75vw, calc(100vw - 42px)'
+            }
             onClick={onClick}
             {...work}
         />

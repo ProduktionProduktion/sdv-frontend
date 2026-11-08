@@ -7,6 +7,7 @@ const nextConfig = {
     partialPrefetching: true,
     allowedDevOrigins: ['172.20.20.173'],
     images: {
+        formats: ['image/avif', 'image/webp'],
         remotePatterns: [
             {
                 protocol: 'https',

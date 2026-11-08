@@ -27,7 +27,9 @@ export function WorkItem({
                 data-index={index + 1}
                 className={`${classNames.item}`}
                 style={style}>
-                <Link href={uri} className={classNames._inner}>
+                {/* No viewport prefetch: all items are visible at load, so it fires a burst of
+                    _next/data requests during startup. Next still prefetches on hover. */}
+                <Link href={uri} className={classNames._inner} {...(Link !== 'a' && { prefetch: false })}>
                     {sourceUrl && (
                         <Figure
                             key={imageId}

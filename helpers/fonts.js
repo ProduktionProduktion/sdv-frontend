@@ -25,6 +25,9 @@ const body = localFont({
         },
     ],
     variable: '--font-body',
+    // Not used above the fold on the front page; skip preloading so the 4 files (~210 KB)
+    // don't compete with the LCP image. Still discovered from CSS when used.
+    preload: false,
 });
 
 const heading = Work_Sans({
@@ -37,6 +40,7 @@ const mono = DM_Mono({
     subsets: ['latin'],
     weight: ['300', '500'],
     variable: '--font-mono',
+    preload: false,
 });
 
 const fonts = {
