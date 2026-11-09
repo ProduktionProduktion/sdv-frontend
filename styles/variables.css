@@ -34,6 +34,9 @@
     --font-size-h6: 1rem;
     --line-height-h6: 1.2;
 
+    --font-size-preamble: 1rem;
+    --line-height-preamble: var(--line-height);
+
     --font-size-nav: 0.75rem;
 
     --font-size-mono: var(--font-size-sm);
