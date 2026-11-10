@@ -11,6 +11,21 @@ body {
     /* overflow-x: hidden; */
     background-color: var(--color-dark);
     /* background-color: var(--color-theme); */
+
+    @supports (animation-timeline: scroll()) {
+        animation: backgroundFade linear both;
+        animation-timeline: scroll(root);
+        animation-range: var(--nav-height) calc(100% - 100lvh);
+    }
+}
+
+@keyframes backgroundFade {
+    from {
+        background-color: var(--color-light);
+    }
+    to {
+        background-color: var(--color-dark);
+    }
 }
 
 body {
