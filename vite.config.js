@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, runnerImport } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 import esbuild from 'rollup-plugin-esbuild';
+import { fontsExport } from './cms/fontsExport.mjs';
 
 const alias = { '@': fileURLToPath(new URL('./', import.meta.url)) };
 const jsx = () => esbuild({ loader: 'jsx', jsx: 'automatic', jsxImportSource: 'react' });
@@ -68,7 +69,18 @@ export default defineConfig(({ mode }) => {
                 },
             },
         },
-        plugins: [graphqlExport(`${env.CMS_COMPONENTS_OUTPUT_PATH}/graphql/blocks`)],
+        plugins: [
+            graphqlExport(`${env.CMS_COMPONENTS_OUTPUT_PATH}/graphql/blocks`),
+            fontsExport({
+                entry: './helpers/fonts.js',
+                outDir,
+                // Bud inlines fonts.css without rebasing urls, so use the theme's @src (resources/) alias
+                fontsUrl: '@src/frontend-assets/dist/fonts/',
+                // Mirrors the extra variable set in pages/_app.js
+                aliases: { '--font-navigation': '--font-heading' },
+                resolve: { alias },
+            }),
+        ],
         resolve: {
             alias: {
                 ...alias, // Alias for src folder
