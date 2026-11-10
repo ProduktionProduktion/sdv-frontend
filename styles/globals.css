@@ -132,11 +132,11 @@ h6,
     }
 }
 
-/* p:not(:first-of-type) { */
+/* New code:
 ol,
 ul,
 p {
-    &:not(.font-mono):is(p:not(.preamble) + p):not(p:empty + p) {
+    &:not(.font-mono, .no-indent):is(p:not(.preamble) + p):not(p:empty + p) {
         text-indent: 1em;
     }
 
@@ -145,9 +145,34 @@ p {
     }
 }
 
-p:not(.font-mono):empty {
-    height: 1cap; /* or margin-bottom: var(--spacer); */
+p.no-indent + p.no-indent {
+    margin-top: 1cap;
 }
+
+REMOVE START:
+*/
+
+ol,
+ul,
+p {
+    &:not(.font-mono, .no-indent):is(p:not(.preamble) + p):not(p:empty + p) {
+        text-indent: 1em;
+    }
+
+    &:has(+ :not(p)) {
+        margin-bottom: var(--spacer);
+    }
+}
+
+p:is(.no-indent, .font-mono) + p.no-indent {
+    margin-top: 1cap;
+}
+
+/* LEGACY: remove once all content uses .no-indent */
+p:not(.font-mono):empty {
+    height: 1cap;
+}
+/* REMOVE END */
 
 p.preamble {
     margin-bottom: var(--spacer);
