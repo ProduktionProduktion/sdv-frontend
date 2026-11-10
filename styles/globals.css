@@ -136,7 +136,7 @@ h6,
 ol,
 ul,
 p {
-    &:not(.font-mono, .no-indent):is(p:not(.preamble) + p):not(p:empty + p) {
+    &:not(.font-mono, .no-indent):is(p:not(.preamble) + p) {
         text-indent: 1em;
     }
 
@@ -164,6 +164,7 @@ p {
     }
 }
 
+/* p:is(.no-indent, .font-mono) + p:is(.no-indent, .font-mono) { */
 p:is(.no-indent, .font-mono) + p.no-indent {
     margin-top: 1cap;
 }
@@ -172,6 +173,7 @@ p:is(.no-indent, .font-mono) + p.no-indent {
 p:not(.font-mono):empty {
     height: 1cap;
 }
+
 /* REMOVE END */
 
 p.preamble {
@@ -198,6 +200,7 @@ figure {
 ol,
 ul {
     padding-left: 1em;
+    margin-bottom: var(--spacer);
 }
 
 /* @media (prefers-color-scheme: dark) {
