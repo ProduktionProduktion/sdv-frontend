@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import { Work_Sans, DM_Mono, Fraunces } from 'next/font/google';
+import { Work_Sans, DM_Mono } from 'next/font/google';
 
 const body = localFont({
     src: [

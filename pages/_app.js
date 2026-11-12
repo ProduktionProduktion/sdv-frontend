@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { FaustProvider } from '@faustwp/core';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import { font } from '@/helpers/fonts';
@@ -28,6 +29,14 @@ export default function App({ Component, pageProps }) {
                     --font-mono: ${fonts.mono.fontFamily};
                 }
             `}</style>
+            {process.env.NEXT_PUBLIC_PIRSCH_CODE && (
+                <Script
+                    id="pianjs"
+                    src="https://api.pirsch.io/pa.js"
+                    data-code={process.env.NEXT_PUBLIC_PIRSCH_CODE}
+                    strategy="afterInteractive"
+                />
+            )}
             <RouteProgress />
             <WordPressBlocksProvider config={blocks}>
                 <Component {...pageProps} key={router.asPath} />
