@@ -7,7 +7,7 @@ The backend lives in [`sdv-backend`](https://github.com/ProduktionProduktion/sdv
 ## Requirements
 
 - Node (version in `.nvmrc`, `nvm use`)
-- A running `sdv-backend` (locally via Local: `https://sdv-backend.local`) with Faust and WPGraphQL enabled
+- A running `sdv-backend` (e.g. locally via Local) with Faust and WPGraphQL enabled
 - `gh` CLI, authenticated, for `npm run deploy`
 
 ## Getting started
@@ -23,28 +23,28 @@ Open <http://localhost:3000>.
 
 ### Environment variables
 
-| Variable | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_WORDPRESS_URL` | WordPress URL, e.g. `https://sdv-backend.local` |
-| `FAUST_SECRET_KEY` | Secret from WordPress → Settings → Faust (previews, auth) |
-| `NEXT_PUBLIC_SITE_URL` | Public URL of this frontend (canonical, `og:url`, sitemap) |
-| `REVALIDATE_SECRET` | Shared with the backend; protects `/api/revalidate` |
-| `NEXT_PUBLIC_PIRSCH_CODE` | Pirsch analytics code. Unset = no tracking |
+| Variable                     | Purpose                                                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_WORDPRESS_URL`  | WordPress URL, e.g. `https://backend-domain.com`                                                             |
+| `FAUST_SECRET_KEY`           | Secret from WordPress → Settings → Faust (previews, auth)                                                    |
+| `NEXT_PUBLIC_SITE_URL`       | Public URL of this frontend (canonical, `og:url`, sitemap)                                                   |
+| `REVALIDATE_SECRET`          | Shared with the backend; protects `/api/revalidate`                                                          |
+| `NEXT_PUBLIC_PIRSCH_CODE`    | Pirsch analytics code. Unset = no tracking                                                                   |
 | `CMS_COMPONENTS_OUTPUT_PATH` | Where `npm run build:cms` writes, normally `<sdv-backend>/web/app/themes/headless/resources/frontend-assets` |
-| `CMS_COMPONENTS_THEME_PATH` | Path to the backend theme |
+| `CMS_COMPONENTS_THEME_PATH`  | Path to the backend theme                                                                                    |
 
 All variables are listed with placeholder values in `.env.example`.
 
 ## Scripts
 
-| Command | What it does |
-| --- | --- |
-| `npm run dev` | Dev server on :3000 |
-| `npm run build` / `npm start` | Production build / serve it |
-| `npm run lint` | ESLint (`npx eslint <paths>` for specific files) |
-| `npm run generate` | Refresh `possibleTypes.json` from the WordPress schema |
-| `npm run build:cms` | Build the CMS component bundle (Vite) |
-| `npm run deploy` | `git push` and follow the GitHub Actions run |
+| Command                       | What it does                                           |
+| ----------------------------- | ------------------------------------------------------ |
+| `npm run dev`                 | Dev server on :3000                                    |
+| `npm run build` / `npm start` | Production build / serve it                            |
+| `npm run lint`                | ESLint (`npx eslint <paths>` for specific files)       |
+| `npm run generate`            | Refresh `possibleTypes.json` from the WordPress schema |
+| `npm run build:cms`           | Build the CMS component bundle (Vite)                  |
+| `npm run deploy`              | `git push` and follow the GitHub Actions run           |
 
 ## Project structure
 
@@ -75,7 +75,7 @@ Blocks are rendered through `wp-blocks/`. Images are queried with `MediaFragment
 
 After adding ACF field groups or interfaces in the backend, run `npm run generate` and commit `possibleTypes.json`. Interface fragments (e.g. `... on WithAcfSeoFields`) need it.
 
-For curl testing, use `https://sdv-backend.local/index.php?graphql` (`/graphql` gets redirected by Faust).
+For curl testing, use `https://backend-domain.com/index.php?graphql` (`/graphql` gets redirected by Faust).
 
 ### Revalidation
 
