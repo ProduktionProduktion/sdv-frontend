@@ -13,7 +13,7 @@ export default function Header({ siteTitle, siteDescription, menuItems }) {
                     <Link href="/" className={styles.brand}>
                         <Logo title={siteTitle || 'Salorant &amp; de Vylders'} description={siteDescription} />
                     </Link>
-                    {siteDescription && <p className="description">{siteDescription}</p>}
+                    {siteDescription && <p className="description visually-hidden">{siteDescription}</p>}
                     <NavigationMenu className={['primary-navigation'].join(' ')} menuItems={menuItems} />
                 </div>
                 <Logo className={styles.symbol} symbol />

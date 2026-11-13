@@ -11,14 +11,14 @@ export default function Component({ loading, data }) {
         return <Loading text="THINKING" />;
     }
 
-    const { generalSettings, headerMenuItems, nodeByUri, footerSidebar } = data;
+    const { generalSettings, headerMenuItems, page, footerSidebar } = data;
     const { title: siteTitle, description: siteDescription } = generalSettings;
 
     return (
         <>
-            <Seo node={nodeByUri} settings={data} />
+            <Seo node={page} settings={data} />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} menuItems={headerMenuItems?.nodes} />
-            <BlocksComponentMap data={nodeByUri} />
+            <BlocksComponentMap data={page} />
             <Footer id={footerSidebar?.id} name={footerSidebar?.name} editorBlocks={footerSidebar?.editorBlocks} />
         </>
     );
@@ -30,13 +30,11 @@ Component.query = gql`
     ${Footer.fragments.entry}
     ${Seo.fragments.settings}
     ${Seo.fragments.node}
-    query GetFrontPage {
-        nodeByUri(uri: "/") {
-            ... on Page {
-                title
-                ...BlockEditorFragment
-                ...SeoNodeFragment
-            }
+    query GetFrontPage($databaseId: ID!, $asPreview: Boolean = false) {
+        page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+            title
+            ...BlockEditorFragment
+            ...SeoNodeFragment
         }
         ...HeaderFragment
         ...FooterFragment
@@ -49,8 +47,9 @@ Component.query = gql`
 // console.log('---');
 
 // Variables function to provide the required arguments to the query
-Component.variables = (_, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
     return {
+        databaseId,
         asPreview: ctx?.asPreview,
     };
 };

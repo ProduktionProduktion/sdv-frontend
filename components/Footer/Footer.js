@@ -69,6 +69,7 @@ export default function Footer({ editorBlocks = [] }) {
                         width={width}
                         height={140}
                         style={{ width: 'auto', height: 'auto' }}
+                        loading="lazy"
                     />
                 ))}
             </div>
