@@ -2,7 +2,7 @@
 import { ImageResponse } from 'next/og';
 // import '@/styles/variables.css';
 
-const ICON_SIZES = { favicon: 32, apple: 180, 192: 192, 512: 512 };
+const ICON_SIZES = { favicon: 32, 96: 96, apple: 180, 192: 192, 512: 512 };
 
 export default async function handler(req, res) {
     const size = ICON_SIZES[req.query.size] ?? 32;

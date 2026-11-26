@@ -40,7 +40,7 @@ export default function Seo({ node, settings, viewTitle = null, parentTitle = nu
             <title>{title}</title>
 
             {/* <link rel="icon" href="/icon.svg" type="image/svg+xml" /> */}
-            <link rel="icon" href="/api/icon?size=favicon" type="image/png" sizes="32x32" />
+            <link rel="icon" href="/api/icon?size=96" type="image/png" sizes="96x96" />
             <link rel="apple-touch-icon" href="/api/icon?size=apple" sizes="180x180" />
 
             {description && <meta key="description" name="description" content={description} />}

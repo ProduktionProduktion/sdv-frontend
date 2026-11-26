@@ -36,8 +36,8 @@ export function Button({
             className={className}
             style={inlineStyles}
             {...(link.target && { target: link.target })}
-            rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>
-            {link.title}
-        </LinkComponent>
+            rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+            dangerouslySetInnerHTML={{ __html: link.title }}
+        />
     );
 }
