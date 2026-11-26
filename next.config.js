@@ -5,6 +5,9 @@ const nextConfig = {
     reactStrictMode: true,
     cacheComponents: true,
     partialPrefetching: true,
+    experimental: {
+        agentUpgrade: 'security',
+    },
     allowedDevOrigins: ['172.20.20.173'],
     images: {
         formats: ['image/avif', 'image/webp'],
